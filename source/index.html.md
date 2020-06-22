@@ -98,7 +98,7 @@ Error Code | Description
 {
   "..."
   "links": {
-    "retake_assessment_url": "https://...",
+    "questionnaire_url": "https://...",
     "results_url": "https://..."
   }
 }
@@ -117,7 +117,7 @@ curl "https://app.com/api/v1/users?page=1&per_page=100"
 
 ```json
 {
-  "..."
+  "...",
   "links": {
     "next_page": "https://...",
     "previous_page": "https://...",
@@ -207,114 +207,116 @@ Resource mutation API requests will trigger resource validations.
 
 For failed requests, the API will return a [HTTP 422 - Unprocessable Entity](https://tools.ietf.org/html/rfc4918) status code and associated body containing a collection of errors.
 
-# Kittens
+# Questions
 
-## Get All Kittens
+## GET > Get questions and associated muliple choice answers
 
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "https://app.sixpark.com.au/api/v1/questions"
+  -H "Authorization: Bearer <access_token>"
 ```
 
-> The above command returns JSON structured like this:
+> The above returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "questions": [
+    {
+      "id": "tnEKYuedAjPvB",
+      "text": "What is your age?",
+      "description": "Generally, younger investors have a greater appetite for...",
+      "answers": [
+        {
+          "id": "AG6DpLkUwLCCNyZRhHEi",
+          "text": "18-25 yrs",
+          "description": "Generally, younger investors are considered to have a greater capacity for risk..."
+        },
+        {
+          "id": "AG6DpLkUwLCCNyZRhHEi",
+          "text": "$125,000 to $249,999",
+          "description": "Generally, the greater the liquid assets you have..."
+        }
+      ],
+      "links": {
+        "question_url": "https://..."
+      }
+    }
+  ],
+  "links": {
+    "results_url": "https://...",
+    "next_page": "https://...",
+    "previous_page": "https://...",
+    "first_page": "https://...",
+    "last_page": "https://..."
   }
-]
 ```
 
-This endpoint retrieves all kittens.
+_Get_ a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://app.sixpark.com.au/api/v1/questions`
 
-### Query Parameters
+### URL Parameters
 
 Parameter | Default | Description
+--------- | ----------- | -----------
+investor_type | individual | The investor type to tailor the questionnaire for - one of either [ individual, group ]
+page | 1 | The nth-chunk of `per_page` resources.
+per_page | 10 | Include this number of resources in the response.
+
+### Summary
+
+Concept | Value | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+authenticated | yes | Access is granted via a client credentials access token
+paginated | yes | 
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
 
-## Get a Specific Kitten
+## GET > Get a singular question and associated multiple choice answers
 
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl "https://app.sixpark.com.au/api/v1/questions/{id}"
+  -H "Authorization: Bearer <access_token>"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+  "question": {
+    "id": "tnEKYuedAjPvB",
+    "text": "What is your age?",
+    "description": "Generally, younger investors have a greater appetite for...",
+    "answers": [
+      {
+        "id": "AG6DpLkUwLCCNyZRhHEi",
+        "text": "18-25 yrs",
+        "description": "Generally, younger investors are considered to have a greater capacity for risk..."
+      },
+      {
+        "id": "AG6DpLkUwLCCNyZRhHEi",
+        "text": "$125,000 to $249,999",
+        "description": "Generally, the greater the liquid assets you have..."
+      }
+    ]
+  },
+  "links": {
+    "questions_url": "https://..."
+  }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+_Get_ a singular question and the associated answers collection as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://app.sixpark.com.au/api/v1/questions/{id}`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+ID | The ID of the question
 
