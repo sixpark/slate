@@ -219,6 +219,11 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-gt-client-credentials-bearer-access-token" class="toc-h2 toc-link" data-title="GET &gt; Client credentials Bearer access token">GET &gt; Client credentials Bearer access token</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
@@ -261,18 +266,20 @@
 <div class="highlight"><pre class="highlight plaintext"><code>https://app.sixpark.com.au
 </code></pre></div>
 <blockquote>
-<p>The API base URL including version:</p>
+<p>The API base URL including version (for resource or client credentials authorized endpoints):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>https://app.sixpark.com.au/api/v1
 </code></pre></div>
 <p>Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.</p>
 
-<p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning URLs are resource-oriented. 
-It returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
+<p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning (generally) URLs are resource-oriented. 
+It returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a>, <a href="https://en.wikipedia.org/wiki/Header_(computing)">HTTP headers</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
 
-<p>You must be pre-approved to use the API. You can request approval by emailing <a href="mailto:developers@sixpark.com.au?subject=API%20access">developers@sixpark.com.au</a>.</p>
+<p>You must be pre-approved to use the API. If you are approved you will be assigned a <code>client_id</code> and a <code>client_secret</code>, synonimous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.</p>
 
-<p>The API specification version is currently V1 (draft), therefore all endpoints will contain <code>/api/v1</code> in the URL path.</p>
+<p>You can request approval by emailing <a href="mailto:developers@sixpark.com.au?subject=API%20access">developers@sixpark.com.au</a>.</p>
+
+<p>The API specification version is currently V1 (draft), therefore all non-authorization endpoints will contain <code>/api/v1</code> in the URL path.</p>
 
 <p>We&#39;ve provided language bindings in Shell but recommend <a href="https://www.postman.com">Postman</a> and have included a Postman collection with this documentation. You can view Shell code examples in the dark area to the right.</p>
 <h1 id='authentication'>Authentication</h1>
@@ -293,13 +300,62 @@ curl <span class="s2">"api_endpoint_here"</span>
 
 <p>Applications that have acquired a resource owner access token will be granted access to resource owner (user) endpoints.</p>
 
-<p>Other than Authorization requests, the API expects a valid access token to be included in all othre API requests via a Bearer header:</p>
+<p>Other than Authorization requests, the API expects a valid access token to be included in all other API requests via a Bearer header:</p>
 
 <p><code>Authorization: Bearer access_token</code></p>
 
 <aside class="notice">
-You must replace <code>access_token</code> with the token returned via the client credentials or the modified authorization code flow.
+You must replace <code>access_token</code> with the Bearer token returned via the client credentials or the modified authorization code flow.
 </aside>
+<h2 id='get-gt-client-credentials-bearer-access-token'>GET &gt; Client credentials Bearer access token</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/oauth/token?grant_type=client_credentials"</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"</span>
+</code></pre></div>
+<blockquote>
+<p>The above returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592809139</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><em>Get</em> a client credentials (application) access token to authenticate against client credentials API endpoints.</p>
+
+<p>The endpoint accepts one parameter and a <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic authentication</a> header which must adhere to the following:</p>
+
+<p><code>Authorization: Basic &lt;Base64(&#39;client_id:client_secret&#39;)&gt;</code></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://app.sixpark.com.au/oauth/token</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grant_type</td>
+<td><code>no default</code></td>
+<td>Must be <code>client_credentials</code></td>
+</tr>
+</tbody></table>
+<h3 id='summary'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>yes</td>
+<td>Access is granted via <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic authentication</a></td>
+</tr>
+</tbody></table>
 <h1 id='errors'>Errors</h1>
 <blockquote>
 <p>Error API responses may look like this:</p>
@@ -316,7 +372,7 @@ You must replace <code>access_token</code> with the token returned via the clien
 
 <p>Some unsuccessful API responses will include a human readable error message as part of the response which may indicate the action required to remedy a subsequent request.</p>
 
-<p>Below is the standard set of HTTP status code summary.</p>
+<p>Provided is the standard set of HTTP status code:</p>
 
 <table><thead>
 <tr>
@@ -363,7 +419,7 @@ You must replace <code>access_token</code> with the token returned via the clien
 </tbody></table>
 <h1 id='hateoas'>HATEOAS</h1>
 <blockquote>
-<p>HATEOAS responses may contain links like these:</p>
+<p>HATEOAS responses may contain links similar to the below:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"..."</span><span class="w">
@@ -450,7 +506,7 @@ You must replace <code>access_token</code> with the token returned via the clien
 
 <p>When an application exceeds the rate limit for an endpoint, the API will return a <a href="https://tools.ietf.org/html/rfc6585">HTTP 429 - Too Many Requests</a> status code and associated response body.</p>
 
-<aside>As of 06/2020 the API does not enforce rate limits.</aside>
+<aside class="notice">As of 06/2020 the API does <strong>not</strong> enforce rate limits.</aside>
 <h1 id='versioning'>Versioning</h1>
 <blockquote>
 <p>The API base URL including version:</p>
@@ -507,9 +563,9 @@ You must replace <code>access_token</code> with the token returned via the clien
           </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors are considered to have a greater capacity for risk..."</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$125,000 to $249,999"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, the greater the liquid assets you have..."</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4ReX5gCGen2XA13GDQHd"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26-35 yrs"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors are considered to have a greater capacity for risk..."</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -526,9 +582,9 @@ You must replace <code>access_token</code> with the token returned via the clien
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Get</em> a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://app.sixpark.com.au/api/v1/questions</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -552,17 +608,17 @@ You must replace <code>access_token</code> with the token returned via the clien
 <td>Include this number of resources in the response.</td>
 </tr>
 </tbody></table>
-<h3 id='summary'>Summary</h3>
+<h3 id='summary-2'>Summary</h3>
 <table><thead>
 <tr>
-<th>Concept</th>
+<th>Configuration</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>authenticated</td>
-<td>yes</td>
+<td>yes - client credentials</td>
 <td>Access is granted via a client credentials access token</td>
 </tr>
 <tr>
@@ -589,9 +645,9 @@ You must replace <code>access_token</code> with the token returned via the clien
         </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors are considered to have a greater capacity for risk..."</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$125,000 to $249,999"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, the greater the liquid assets you have..."</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4ReX5gCGen2XA13GDQHd"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26-35 yrs"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors are considered to have a greater capacity for risk..."</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -600,9 +656,9 @@ You must replace <code>access_token</code> with the token returned via the clien
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Get</em> a singular question and the associated answers collection as per the Six Park questionnaire/risk assessment.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://app.sixpark.com.au/api/v1/questions/{id}</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -612,6 +668,25 @@ You must replace <code>access_token</code> with the token returned via the clien
 <tr>
 <td>ID</td>
 <td>The ID of the question</td>
+</tr>
+</tbody></table>
+<h3 id='summary-3'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>yes - client credentials</td>
+<td>Access is granted via a client credentials access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
 </tr>
 </tbody></table>
 
