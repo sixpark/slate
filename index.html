@@ -196,7 +196,7 @@
   color: #f92672;
 }
     </style>
-    <link href="stylesheets/screen-0a7c4629.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-3bc54f96.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-c427a123.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch-c275c2f6.js"></script>
   </head>
@@ -205,25 +205,38 @@
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar-cad8cdcb.png" alt="" />
+        <img src="images/navbar-782a3951.png" alt="" />
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-1e815a84.png" class="logo" alt="" />
+      <img src="images/logo-6d1dfc4d.svg" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
         </div>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#version" class="toc-h2 toc-link" data-title="Version">Version</a>
-                  </li>
-                  <li>
-                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
-                  </li>
-              </ul>
+            <a href="#basics" class="toc-h1 toc-link" data-title="Basics">Basics</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+          <li>
+            <a href="#hateoas" class="toc-h1 toc-link" data-title="HATEOAS">HATEOAS</a>
+          </li>
+          <li>
+            <a href="#pagination" class="toc-h1 toc-link" data-title="Pagination">Pagination</a>
+          </li>
+          <li>
+            <a href="#rate-limiting" class="toc-h1 toc-link" data-title="Rate Limiting">Rate Limiting</a>
+          </li>
+          <li>
+            <a href="#versioning" class="toc-h1 toc-link" data-title="Versioning">Versioning</a>
+          </li>
+          <li>
+            <a href="#validation" class="toc-h1 toc-link" data-title="Validation">Validation</a>
           </li>
           <li>
             <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
@@ -239,59 +252,247 @@
                   </li>
               </ul>
           </li>
-          <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
-          </li>
       </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
+        <h1 id='basics'>Basics</h1>
 <blockquote>
 <p>The API base URL:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>https://api.sixpark.com.au
+<div class="highlight"><pre class="highlight plaintext"><code>https://app.sixpark.com.au
+</code></pre></div>
+<blockquote>
+<p>The API base URL including version:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>https://app.sixpark.com.au/api/v1
 </code></pre></div>
 <p>Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.</p>
 
-<p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API and so URLs are resource-oriented. 
+<p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning URLs are resource-oriented. 
 It returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
 
-<p>We&#39;ve provided language bindings in Shell but we recommend <a href="https://www.postman.com">Postman</a>. You can view code examples in the dark area to the right.</p>
-<h3 id='version'>Version</h3>
-<p>The API specification version is what we refer to as the Draft V1 specification, therefore all endpoints will contain <code>/api/v1</code> in the URL path.</p>
-<h3 id='authentication'>Authentication</h3>
+<p>You must be pre-approved to use the API. You can request approval by emailing <a href="mailto:developers@sixpark.com.au?subject=API%20access">developers@sixpark.com.au</a>.</p>
+
+<p>The API specification version is currently V1 (draft), therefore all endpoints will contain <code>/api/v1</code> in the URL path.</p>
+
+<p>We&#39;ve provided language bindings in Shell but recommend <a href="https://www.postman.com">Postman</a> and have included a Postman collection with this documentation. You can view Shell code examples in the dark area to the right.</p>
+<h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authenticate, use this code:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer access_token"</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code>access token</code> with the token returned via the client credentials or the modified authorization code flow.</p>
 </blockquote>
 
-<p>Access to the API is provided via <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a>. You must be pre-approved to use the API. You can request access by emailing <a href="mailto:developers@sixpark.com.au?subject=API%20access">developers@sixpark.com.au</a>.</p>
+<p>Access to the API is provided via <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> using the <a href="https://tools.ietf.org/html/draft-ietf-oauth-v2-22#section-4.4">client credentials</a> flow and a modified <a href="https://tools.ietf.org/html/draft-ietf-oauth-v2-22#section-4.1">authorization code</a> flow.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Applications that request an access token via the client credentials flow will be granted access to all non-resource owner (user) endpoints.</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>Applications that have acquired a resource owner access token will be granted access to resource owner (user) endpoints.</p>
+
+<p>Other than Authorization requests, the API expects a valid access token to be included in all othre API requests via a Bearer header:</p>
+
+<p><code>Authorization: Bearer access_token</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>access_token</code> with the token returned via the client credentials or the modified authorization code flow.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='errors'>Errors</h1>
+<blockquote>
+<p>Error API responses may look like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"url_invalid"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sorry, that page does not exist."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"error_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The Six Park API returns standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a> to indicate the result of an API request.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
+<p>Some unsuccessful API responses will include a human readable error message as part of the response which may indicate the action required to remedy a subsequent request.</p>
+
+<p>Below is the standard set of HTTP status code summary.</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request - The request is invalid, often due to a missing parameter.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized - The access token is missing or invalid.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden - The access token does not have the permissions to perform the request.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found - The specified resource could not be found.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable - The requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable Entity - The request was well-formed but was unable to be completed.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests - The rate at which the API is being accessed is too fast.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error - We had a problem with our application/API. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable - We&#39;re temporarily offline. Please try again later.</td>
+</tr>
+</tbody></table>
+<h1 id='hateoas'>HATEOAS</h1>
+<blockquote>
+<p>HATEOAS responses may contain links like these:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"..."</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"retake_assessment_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"results_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosly couple their integration to the API.</p>
+<h1 id='pagination'>Pagination</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.com/api/v1/users?page=1&amp;per_page=100"</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer access_token"</span>
+</code></pre></div>
+<blockquote>
+<p>An example of an API request using pagination parameters and the response body containing links to related pages</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"..."</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"next_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"previous_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>API Endpoints that return a collection of resources will always be paginated. The API will accept the following parameters for these endpoints:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>1</td>
+<td>The page number</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>50</td>
+<td>The number of results returned per page</td>
+</tr>
+</tbody></table>
+
+<p>Paginated results will contain at minimum 4 <a href="https://tools.ietf.org/html/rfc5988">links</a> to related pages, including <code>next_page</code>, <code>previous_page</code>, <code>first_page</code> and <code>last_page</code>.</p>
+<h1 id='rate-limiting'>Rate Limiting</h1>
+<blockquote>
+<p>An example of a HTTP 429 - Too Many Requests JSON response body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rate_limit_exceeded"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Too many requests, too quickly. We recommend an exponential backoff."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"error_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The Six Park API uses <a href="https://en.wikipedia.org/wiki/Header_(computing)">HTTP headers</a> to communicate rate limits and consumption rates.</p>
+
+<p>Applications should parse and respect the following 3 headers:</p>
+
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>x-rate-limit-limit</td>
+<td>the limit on number of request for the endpoint</td>
+</tr>
+<tr>
+<td>x-rate-limit-remaining</td>
+<td>the number of requests remaining for the rate limit window</td>
+</tr>
+<tr>
+<td>x-rate-limit-reset</td>
+<td>the <a href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a> at which the rate limit window is reset</td>
+</tr>
+</tbody></table>
+
+<p>When an application exceeds the rate limit for an endpoint, the API will return a <a href="https://tools.ietf.org/html/rfc6585">HTTP 429 - Too Many Requests</a> status code and associated response body.</p>
+
+<aside>As of 06/2020 the API does not enforce rate limits.</aside>
+<h1 id='versioning'>Versioning</h1>
+<blockquote>
+<p>The API base URL including version:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>https://app.sixpark.com.au/api/v1
+</code></pre></div>
+<p>The API specification version is currently V1 (draft), therefore all endpoints will contain <code>/api/v1</code> in the URL path.</p>
+
+<p>When backwards-incompatible changes are made to the API, a new version is released.</p>
+
+<p>We consider backwards-<em>compatible</em> changes to include:</p>
+
+<ul>
+<li>Adding new API resources.</li>
+<li>Adding new optional request parameters to existing API methods.</li>
+<li>Adding new properties to existing responses.</li>
+<li>Changing the order of properties in existing API responses.</li>
+<li>Changing the length or format of object IDs.</li>
+</ul>
+<h1 id='validation'>Validation</h1>
+<blockquote>
+<p>The API base URL including version:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation_failed"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Validation failed due to ..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Must be one of ..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"type"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Resource mutation API requests will trigger resource validations.</p>
+
+<p>For failed requests, the API will return a <a href="https://tools.ietf.org/html/rfc4918">HTTP 422 - Unprocessable Entity</a> status code and associated body containing a collection of errors.</p>
+<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -339,20 +540,8 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -382,21 +571,9 @@ Remember — a happy kitten is an authenticated kitten!
 <td>The ID of the kitten to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
   <span class="nt">-X</span> DELETE
   <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -419,64 +596,6 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>ID</td>
 <td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
-
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
 
