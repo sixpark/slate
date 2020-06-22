@@ -14,7 +14,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 https://app.sixpark.com.au
 ```
 
-> The API base URL including version:
+> The API base URL including version (for resource or client credentials authorized endpoints):
 
 ```
 https://app.sixpark.com.au/api/v1
@@ -22,12 +22,14 @@ https://app.sixpark.com.au/api/v1
 
 Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.
 
-The Six Park API is a [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure) only, [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful API, meaning URLs are resource-oriented. 
-It returns [JSON](https://www.json.org/json-en.html) encoded responses and uses standard [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) and [OAuth2](https://en.wikipedia.org/wiki/OAuth) for authorisation/authentication.
+The Six Park API is a [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure) only, [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful API, meaning (generally) URLs are resource-oriented. 
+It returns [JSON](https://www.json.org/json-en.html) encoded responses and uses standard [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [HTTP headers](https://en.wikipedia.org/wiki/Header_(computing)) and [OAuth2](https://en.wikipedia.org/wiki/OAuth) for authorisation/authentication.
 
-You must be pre-approved to use the API. You can request approval by emailing [developers@sixpark.com.au](mailto:developers@sixpark.com.au?subject=API%20access).
+You must be pre-approved to use the API. If you are approved you will be assigned a `client_id` and a `client_secret`, synonimous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.
 
-The API specification version is currently V1 (draft), therefore all endpoints will contain `/api/v1` in the URL path.
+You can request approval by emailing [developers@sixpark.com.au](mailto:developers@sixpark.com.au?subject=API%20access).
+
+The API specification version is currently V1 (draft), therefore all non-authorization endpoints will contain `/api/v1` in the URL path.
 
 We've provided language bindings in Shell but recommend [Postman](https://www.postman.com) and have included a Postman collection with this documentation. You can view Shell code examples in the dark area to the right.
 
@@ -50,13 +52,56 @@ Applications that request an access token via the client credentials flow will b
 
 Applications that have acquired a resource owner access token will be granted access to resource owner (user) endpoints.
 
-Other than Authorization requests, the API expects a valid access token to be included in all othre API requests via a Bearer header:
+Other than Authorization requests, the API expects a valid access token to be included in all other API requests via a Bearer header:
 
 `Authorization: Bearer access_token`
 
 <aside class="notice">
-You must replace <code>access_token</code> with the token returned via the client credentials or the modified authorization code flow.
+You must replace <code>access_token</code> with the Bearer token returned via the client credentials or the modified authorization code flow.
 </aside>
+
+## GET > Client credentials Bearer access token
+
+```shell
+curl "https://app.sixpark.com.au/oauth/token?grant_type=client_credentials"
+  -H "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
+```
+
+
+> The above returns JSON structured like this:
+
+```json
+{
+    "access_token": "8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb",
+    "token_type": "Bearer",
+    "expires_in": 7200,
+    "scope": "read",
+    "created_at": 1592809139
+}
+```
+
+_Get_ a client credentials (application) access token to authenticate against client credentials API endpoints.
+
+The endpoint accepts one parameter and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must adhere to the following:
+
+`Authorization: Basic <Base64('client_id:client_secret')>`
+
+
+### HTTP Request
+
+`GET https://app.sixpark.com.au/oauth/token`
+
+### URL Parameters
+
+Parameter | Default | Description
+--------- | ----------- | -----------
+grant_type | `no default` | Must be `client_credentials`
+
+### Summary
+
+Configuration | Value | Description
+--------- | ------- | -----------
+authenticated | yes | Access is granted via [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
 
 # Errors
 
@@ -76,7 +121,7 @@ The Six Park API returns standard [HTTP response codes](https://en.wikipedia.org
 
 Some unsuccessful API responses will include a human readable error message as part of the response which may indicate the action required to remedy a subsequent request.
 
-Below is the standard set of HTTP status code summary.
+Provided is the standard set of HTTP status code:
 
 Error Code | Description
 ---------- | -------
@@ -92,7 +137,7 @@ Error Code | Description
 
 # HATEOAS
 
-> HATEOAS responses may contain links like these:
+> HATEOAS responses may contain links similar to the below:
 
 ```json
 {
@@ -163,7 +208,7 @@ x-rate-limit-reset | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) at
 
 When an application exceeds the rate limit for an endpoint, the API will return a [HTTP 429 - Too Many Requests](https://tools.ietf.org/html/rfc6585) status code and associated response body.
 
-<aside>As of 06/2020 the API does not enforce rate limits.</aside>
+<aside class="notice">As of 06/2020 the API does <strong>not</strong> enforce rate limits.</aside>
 
 
 # Versioning
@@ -211,7 +256,6 @@ For failed requests, the API will return a [HTTP 422 - Unprocessable Entity](htt
 
 ## GET > Get questions and associated muliple choice answers
 
-
 ```shell
 curl "https://app.sixpark.com.au/api/v1/questions"
   -H "Authorization: Bearer <access_token>"
@@ -233,9 +277,9 @@ curl "https://app.sixpark.com.au/api/v1/questions"
           "description": "Generally, younger investors are considered to have a greater capacity for risk..."
         },
         {
-          "id": "AG6DpLkUwLCCNyZRhHEi",
-          "text": "$125,000 to $249,999",
-          "description": "Generally, the greater the liquid assets you have..."
+          "id": "4ReX5gCGen2XA13GDQHd",
+          "text": "26-35 yrs",
+          "description": "Generally, younger investors are considered to have a greater capacity for risk..."
         }
       ],
       "links": {
@@ -268,14 +312,12 @@ per_page | 10 | Include this number of resources in the response.
 
 ### Summary
 
-Concept | Value | Description
+Configuration | Value | Description
 --------- | ------- | -----------
-authenticated | yes | Access is granted via a client credentials access token
+authenticated | yes - client credentials | Access is granted via a client credentials access token
 paginated | yes | 
 
-
 ## GET > Get a singular question and associated multiple choice answers
-
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/questions/{id}"
@@ -297,9 +339,9 @@ curl "https://app.sixpark.com.au/api/v1/questions/{id}"
         "description": "Generally, younger investors are considered to have a greater capacity for risk..."
       },
       {
-        "id": "AG6DpLkUwLCCNyZRhHEi",
-        "text": "$125,000 to $249,999",
-        "description": "Generally, the greater the liquid assets you have..."
+        "id": "4ReX5gCGen2XA13GDQHd",
+        "text": "26-35 yrs",
+        "description": "Generally, younger investors are considered to have a greater capacity for risk..."
       }
     ]
   },
@@ -320,3 +362,9 @@ Parameter | Description
 --------- | -----------
 ID | The ID of the question
 
+### Summary
+
+Configuration | Value | Description
+--------- | ------- | -----------
+authenticated | yes - client credentials | Access is granted via a client credentials access token
+paginated | no |
