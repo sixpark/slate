@@ -25,7 +25,7 @@ Welcome to the Six Park API. You can use this API to access the Six Park API end
 The Six Park API is a [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure) only, [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful API, meaning (generally) URLs are resource-oriented. 
 It returns [JSON](https://www.json.org/json-en.html) encoded responses and uses standard [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [HTTP headers](https://en.wikipedia.org/wiki/Header_(computing)) and [OAuth2](https://en.wikipedia.org/wiki/OAuth) for authorisation/authentication.
 
-You must be pre-approved to use the API. If you are approved you will be assigned a `client_id` and a `client_secret`, synonimous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.
+You must be pre-approved to use the API. If you are approved you will be assigned a `client_id` and a `client_secret`, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.
 
 You can request approval by emailing [developers@sixpark.com.au](mailto:developers@sixpark.com.au?subject=API%20access).
 
@@ -149,7 +149,7 @@ Error Code | Description
 }
 ```
 
-Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosly couple their integration to the API.
+Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.
 
 # Pagination
 
@@ -254,7 +254,7 @@ For failed requests, the API will return a [HTTP 422 - Unprocessable Entity](htt
 
 # Questions
 
-## GET > Get questions and associated muliple choice answers
+## GET > Get questions and associated multiple choice answers
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/questions"
