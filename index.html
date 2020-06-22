@@ -247,7 +247,7 @@
             <a href="#questions" class="toc-h1 toc-link" data-title="Questions">Questions</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-gt-get-questions-and-associated-muliple-choice-answers" class="toc-h2 toc-link" data-title="GET &gt; Get questions and associated muliple choice answers">GET &gt; Get questions and associated muliple choice answers</a>
+                    <a href="#get-gt-get-questions-and-associated-multiple-choice-answers" class="toc-h2 toc-link" data-title="GET &gt; Get questions and associated multiple choice answers">GET &gt; Get questions and associated multiple choice answers</a>
                   </li>
                   <li>
                     <a href="#get-gt-get-a-singular-question-and-associated-multiple-choice-answers" class="toc-h2 toc-link" data-title="GET &gt; Get a singular question and associated multiple choice answers">GET &gt; Get a singular question and associated multiple choice answers</a>
@@ -275,7 +275,7 @@
 <p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning (generally) URLs are resource-oriented. 
 It returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a>, <a href="https://en.wikipedia.org/wiki/Header_(computing)">HTTP headers</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
 
-<p>You must be pre-approved to use the API. If you are approved you will be assigned a <code>client_id</code> and a <code>client_secret</code>, synonimous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.</p>
+<p>You must be pre-approved to use the API. If you are approved you will be assigned a <code>client_id</code> and a <code>client_secret</code>, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.</p>
 
 <p>You can request approval by emailing <a href="mailto:developers@sixpark.com.au?subject=API%20access">developers@sixpark.com.au</a>.</p>
 
@@ -429,7 +429,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosly couple their integration to the API.</p>
+<p>Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.</p>
 <h1 id='pagination'>Pagination</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.com/api/v1/users?page=1&amp;per_page=100"</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Bearer access_token"</span>
 </code></pre></div>
@@ -544,7 +544,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <p>Resource mutation API requests will trigger resource validations.</p>
 
 <p>For failed requests, the API will return a <a href="https://tools.ietf.org/html/rfc4918">HTTP 422 - Unprocessable Entity</a> status code and associated body containing a collection of errors.</p>
-<h1 id='questions'>Questions</h1><h2 id='get-gt-get-questions-and-associated-muliple-choice-answers'>GET &gt; Get questions and associated muliple choice answers</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questions"</span>
+<h1 id='questions'>Questions</h1><h2 id='get-gt-get-questions-and-associated-multiple-choice-answers'>GET &gt; Get questions and associated multiple choice answers</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questions"</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
