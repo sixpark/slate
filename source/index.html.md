@@ -4,6 +4,10 @@ title: Six Park API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
+includes:
+  - questions
+  - result
+  - users
 ---
 
 # Basics
@@ -35,12 +39,13 @@ We've provided language bindings in Shell but recommend [Postman](https://www.po
 
 # Authentication
 
-> To authenticate, use this code:
+> To access authenticated endpoints, add the Authorization header as shown below:
 
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
+  -H "Content-Type: application/json"
   -H "Authorization: Bearer access_token"
 ```
 
@@ -64,11 +69,12 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 
 ```shell
 curl "https://app.sixpark.com.au/oauth/token?grant_type=client_credentials"
+  -H "Content-Type: application/json"
   -H "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
 ```
 
 
-> The above returns JSON structured like this:
+> A successful (200 HTTP status code) example JSON response body:
 
 ```json
 {
@@ -93,9 +99,9 @@ The endpoint accepts one parameter and a [Basic authentication](https://en.wikip
 
 ### URL Parameters
 
-Parameter | Default | Description
---------- | ----------- | -----------
-grant_type | `no default` | Must be `client_credentials`
+Parameter | Required | Type | Default | Description
+--------- | ----------- | ----------- | ----------- | -----------
+grant_type | yes | string | `no default` | Must be `client_credentials`
 
 ### Summary
 
@@ -112,7 +118,7 @@ authenticated | yes | Access is granted via [Basic authentication](https://en.wi
   "code": "url_invalid",
   "message": "Sorry, that page does not exist.",
   "links": {
-    "error_url": "https://..."
+    "error": "https://..."
   }
 }
 ```
@@ -143,8 +149,8 @@ Error Code | Description
 {
   "..."
   "links": {
-    "questionnaire_url": "https://...",
-    "results_url": "https://..."
+    "questionnaire": "https://...",
+    "results": "https://..."
   }
 }
 ```
@@ -155,6 +161,7 @@ Where possible, and generally found as part of resource owner (user) responses, 
 
 ```shell
 curl "https://app.com/api/v1/users?page=1&per_page=100"
+  -H "Content-Type: application/json"
   -H "Authorization: Bearer access_token"
 ```
 
@@ -174,24 +181,24 @@ curl "https://app.com/api/v1/users?page=1&per_page=100"
 
 API Endpoints that return a collection of resources will always be paginated. The API will accept the following parameters for these endpoints:
 
-Parameter | Default | Description
---------- | ------- | -----------
-page | 1 | The page number
-per_page | 50 | The number of results returned per page
+Parameter | Required | Type | Default | Description
+--------- | ----------- | ----------- | ----------- | -----------
+page | no | integer | 1 | The page number
+per_page | no | integer | 50 | The number of results returned per page
 
 Paginated results will contain at minimum 4 [links](https://tools.ietf.org/html/rfc5988) to related pages, including `next_page`, `previous_page`, `first_page` and `last_page`.
 
 
 # Rate Limiting
 
-> An example of a HTTP 429 - Too Many Requests JSON response body
+> An example of a HTTP 429 - Too Many Requests JSON response body:
 
 ```json
 {
   "code": "rate_limit_exceeded",
   "message": "Too many requests, too quickly. We recommend an exponential backoff.",
   "links": {
-    "error_url": "https://..."
+    "error": "https://..."
   }
 }
 ```
@@ -233,7 +240,7 @@ We consider backwards-<em>compatible</em> changes to include:
 
 # Validation
 
-> The API base URL including version:
+> An example of a HTTP 422 - Unprocessable Entity JSON response body:
 
 ```json
 {
@@ -251,120 +258,3 @@ We consider backwards-<em>compatible</em> changes to include:
 Resource mutation API requests will trigger resource validations.
 
 For failed requests, the API will return a [HTTP 422 - Unprocessable Entity](https://tools.ietf.org/html/rfc4918) status code and associated body containing a collection of errors.
-
-# Questions
-
-## GET > Get questions and associated multiple choice answers
-
-```shell
-curl "https://app.sixpark.com.au/api/v1/questions"
-  -H "Authorization: Bearer <access_token>"
-```
-
-> The above returns JSON structured like this:
-
-```json
-{
-  "questions": [
-    {
-      "id": "tnEKYuedAjPvB",
-      "text": "What is your age?",
-      "description": "Generally, younger investors have a greater appetite for...",
-      "answers": [
-        {
-          "id": "AG6DpLkUwLCCNyZRhHEi",
-          "text": "18-25 yrs",
-          "description": "Generally, younger investors are considered to have a greater capacity for risk..."
-        },
-        {
-          "id": "4ReX5gCGen2XA13GDQHd",
-          "text": "26-35 yrs",
-          "description": "Generally, younger investors are considered to have a greater capacity for risk..."
-        }
-      ],
-      "links": {
-        "question_url": "https://..."
-      }
-    }
-  ],
-  "links": {
-    "results_url": "https://...",
-    "next_page": "https://...",
-    "previous_page": "https://...",
-    "first_page": "https://...",
-    "last_page": "https://..."
-  }
-```
-
-_Get_ a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.
-
-### HTTP Request
-
-`GET https://app.sixpark.com.au/api/v1/questions`
-
-### URL Parameters
-
-Parameter | Default | Description
---------- | ----------- | -----------
-investor_type | individual | The investor type to tailor the questionnaire for - one of either [ individual, group ]
-page | 1 | The nth-chunk of `per_page` resources.
-per_page | 10 | Include this number of resources in the response.
-
-### Summary
-
-Configuration | Value | Description
---------- | ------- | -----------
-authenticated | yes - client credentials | Access is granted via a client credentials access token
-paginated | yes | 
-
-## GET > Get a singular question and associated multiple choice answers
-
-```shell
-curl "https://app.sixpark.com.au/api/v1/questions/{id}"
-  -H "Authorization: Bearer <access_token>"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "question": {
-    "id": "tnEKYuedAjPvB",
-    "text": "What is your age?",
-    "description": "Generally, younger investors have a greater appetite for...",
-    "answers": [
-      {
-        "id": "AG6DpLkUwLCCNyZRhHEi",
-        "text": "18-25 yrs",
-        "description": "Generally, younger investors are considered to have a greater capacity for risk..."
-      },
-      {
-        "id": "4ReX5gCGen2XA13GDQHd",
-        "text": "26-35 yrs",
-        "description": "Generally, younger investors are considered to have a greater capacity for risk..."
-      }
-    ]
-  },
-  "links": {
-    "questions_url": "https://..."
-  }
-```
-
-_Get_ a singular question and the associated answers collection as per the Six Park questionnaire/risk assessment.
-
-### HTTP Request
-
-`GET https://app.sixpark.com.au/api/v1/questions/{id}`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the question
-
-### Summary
-
-Configuration | Value | Description
---------- | ------- | -----------
-authenticated | yes - client credentials | Access is granted via a client credentials access token
-paginated | no |
