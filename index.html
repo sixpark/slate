@@ -269,7 +269,7 @@
             <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#post-gt-create-a-new-six-park-user" class="toc-h2 toc-link" data-title="POST &gt; Create a new Six Park user">POST &gt; Create a new Six Park user</a>
+                    <a href="#post-gt-create-a-new-user" class="toc-h2 toc-link" data-title="POST &gt; Create a new user">POST &gt; Create a new user</a>
                   </li>
                   <li>
                     <a href="#get-gt-retrieve-a-user-39-s-details" class="toc-h2 toc-link" data-title="GET &gt; Retrieve a user's details">GET &gt; Retrieve a user's details</a>
@@ -277,10 +277,27 @@
               </ul>
           </li>
           <li>
+            <a href="#accounts" class="toc-h1 toc-link" data-title="Accounts">Accounts</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-gt-retrieve-a-user-39-s-accounts" class="toc-h2 toc-link" data-title="GET &gt; Retrieve a user's accounts">GET &gt; Retrieve a user's accounts</a>
+                  </li>
+                  <li>
+                    <a href="#post-gt-create-a-new-account-for-a-user" class="toc-h2 toc-link" data-title="POST &gt; Create a new account for a user">POST &gt; Create a new account for a user</a>
+                  </li>
+                  <li>
+                    <a href="#post-gt-create-a-new-result-for-an-account" class="toc-h2 toc-link" data-title="POST &gt; Create a new result for an account">POST &gt; Create a new result for an account</a>
+                  </li>
+                  <li>
+                    <a href="#get-gt-retrieve-an-account-39-s-details" class="toc-h2 toc-link" data-title="GET &gt; Retrieve an account's details">GET &gt; Retrieve an account's details</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#portfolio" class="toc-h1 toc-link" data-title="Portfolio">Portfolio</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-gt-retrieve-a-user-39-s-portfolio-details" class="toc-h2 toc-link" data-title="GET &gt; Retrieve a user's portfolio details">GET &gt; Retrieve a user's portfolio details</a>
+                    <a href="#get-gt-retrieve-a-user-39-s-account-portfolio-details" class="toc-h2 toc-link" data-title="GET &gt; Retrieve a user's account portfolio details">GET &gt; Retrieve a user's account portfolio details</a>
                   </li>
               </ul>
           </li>
@@ -935,7 +952,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='users'>Users</h1><h2 id='post-gt-create-a-new-six-park-user'>POST &gt; Create a new Six Park user</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users"</span>
+<h1 id='users'>Users</h1><h2 id='post-gt-create-a-new-user'>POST &gt; Create a new user</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users"</span>
   <span class="nt">--request</span> POST
   <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
   <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
@@ -965,7 +982,8 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
       </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName LastName"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"onboarded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
       </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"performance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+        </span><span class="nl">"portfolio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
@@ -976,6 +994,9 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
     </span><span class="nl">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAc1I"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read write"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592809139</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -989,7 +1010,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 
 <ul>
 <li><p>If the parameter <code>terms_accepted</code> is not provided, or provided as <code>false</code>, the response will return a HTTP 400 - Bad Request status code.</p></li>
-<li><p>If the parameter <code>result[tripwires_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>tripwires</code> property, the response will return a HTTP 400 - Bad Request status code.</p></li>
+<li><p>If the <code>result[answers]</code> parameter is provided and the <code>result[tripwires_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>tripwires</code> property, the response will return a HTTP 400 - Bad Request status code.</p></li>
 </ul>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://app.sixpark.com.au/api/v1/users</code></p>
@@ -1054,7 +1075,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </tr>
 <tr>
 <td>result[answers]</td>
-<td>yes</td>
+<td>no</td>
 <td>collection</td>
 <td><code>no default</code></td>
 <td>A collection of Six Park answer <strong>ids</strong> as reflected back from the <code>result</code> endpoint</td>
@@ -1098,16 +1119,9 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
   </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LastName"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0410000000"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName LastName"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"onboarded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"performance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Retrieve</em> details of a user.</p>
@@ -1134,7 +1148,240 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='portfolio'>Portfolio</h1><h2 id='get-gt-retrieve-a-user-39-s-portfolio-details'>GET &gt; Retrieve a user&#39;s portfolio details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:id/portfolio"</span>
+<h1 id='accounts'>Accounts</h1><h2 id='get-gt-retrieve-a-user-39-s-accounts'>GET &gt; Retrieve a user&#39;s accounts</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:user_id/accounts"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName LastName"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"onboarded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"portfolio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="s2">"..."</span><span class="w">
+</span></code></pre></div>
+<p><em>Retrieve</em> a collection of the resource owner&#39;s accounts.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://app.sixpark.com.au/api/v1/users/:user_id/accounts</code></p>
+<h3 id='parameters'>Parameters</h3>
+<p>Not Applicable</p>
+<h3 id='summary'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='post-gt-create-a-new-account-for-a-user'>POST &gt; Create a new account for a user</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:user_id/accounts"</span>
+  <span class="nt">--request</span> POST
+  <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"answers=[X,Y]"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"tripwires_accepted=true"</span>
+
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName LastName"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"onboarded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"portfolio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A successful request to this endpoint will create a Six Park account resource and associate it with the resource owner.</p>
+<h3 id='validations'>Validations</h3>
+<p>Outside of general property validation:</p>
+
+<ul>
+<li>If the parameter <code>result[tripwires_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>tripwires</code> property, the response will return a HTTP 400 - Bad Request status code.</li>
+</ul>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://app.sixpark.com.au/api/v1/users</code></p>
+<h3 id='form-parameters'>FORM Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>answers</td>
+<td>yes</td>
+<td>collection</td>
+<td><code>no default</code></td>
+<td>A collection of Six Park answer <strong>ids</strong> as reflected back from the <code>result</code> endpoint</td>
+</tr>
+<tr>
+<td>tripwires_accepted</td>
+<td>no</td>
+<td>boolean</td>
+<td>false</td>
+<td>If tripwires were returned via the <code>result</code> endpoint, whether they were accepted [ true, false ]</td>
+</tr>
+</tbody></table>
+<h3 id='summary-2'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='post-gt-create-a-new-result-for-an-account'>POST &gt; Create a new result for an account</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/results"</span>
+  <span class="nt">--request</span> POST
+  <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"answers=[X,Y]"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"tripwires_accepted=true"</span>
+
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName LastName"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"onboarded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"portfolio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A successful request to this endpoint will create a Six Park account resource associated with the resource owner.</p>
+<h3 id='validations-2'>Validations</h3>
+<p>Outside of general property validation:</p>
+
+<ul>
+<li>If the parameter <code>result[tripwires_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>tripwires</code> property, the response will return a HTTP 400 - Bad Request status code.</li>
+</ul>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://app.sixpark.com.au/api/v1/users</code></p>
+<h3 id='form-parameters-2'>FORM Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>answers</td>
+<td>yes</td>
+<td>collection</td>
+<td><code>no default</code></td>
+<td>A collection of Six Park answer <strong>ids</strong> as reflected back from the <code>result</code> endpoint</td>
+</tr>
+<tr>
+<td>tripwires_accepted</td>
+<td>no</td>
+<td>boolean</td>
+<td>false</td>
+<td>If tripwires were returned via the <code>result</code> endpoint, whether they were accepted [ true, false ]</td>
+</tr>
+</tbody></table>
+<h3 id='summary-3'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='get-gt-retrieve-an-account-39-s-details'>GET &gt; Retrieve an account&#39;s details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName LastName"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"onboarded"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"portfolio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><em>Retrieve</em> details of an account.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id</code></p>
+<h3 id='parameters-2'>Parameters</h3>
+<p>Not applicable.</p>
+<h3 id='summary-4'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id='portfolio'>Portfolio</h1><h2 id='get-gt-retrieve-a-user-39-s-account-portfolio-details'>GET &gt; Retrieve a user&#39;s account portfolio details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:user_id/account/:account_id/portfolio"</span>
   <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -1175,12 +1422,16 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
       </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">-1289.3</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AU$"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Retrieve</em> details of a user&#39;s portfolio and performance.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://app.sixpark.com.au/api/v1/users/:id/portfolio</code></p>
+<p><code>GET https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/portfolio</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
