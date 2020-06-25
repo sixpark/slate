@@ -3,9 +3,8 @@
 ## GET > Get questions and associated multiple choice answers
 
 ```shell
-curl "https://app.sixpark.com.au/api/v1/questions"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer <access_token>"
+curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
+  --header "Authorization: Bearer <access_token>"
 ```
 
 > A successful (200 HTTP status code) example JSON response body:
@@ -45,13 +44,13 @@ curl "https://app.sixpark.com.au/api/v1/questions"
   }
 ```
 
-_Get_ a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.
+_Retrieve_ a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 
-`GET https://app.sixpark.com.au/api/v1/questions`
+`GET https://app.sixpark.com.au/api/v1/questionnaire/questions`
 
-### Parameters
+### URL Parameters
 
 Parameter | Required | Type | Default | Description
 --------- | ----------- | ----------- | ----------- | -----------
@@ -67,9 +66,8 @@ paginated | no |
 ## GET > Retrieve a question and associated multiple choice answers
 
 ```shell
-curl "https://app.sixpark.com.au/api/v1/questions/:id"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer <access_token>"
+curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
+  --header "Authorization: Bearer <access_token>"
 ```
 
 > A successful (200 HTTP status code) example JSON response body:
@@ -99,16 +97,15 @@ curl "https://app.sixpark.com.au/api/v1/questions/:id"
   }
 ```
 
-_Get_ a singular question and the associated answers collection as per the Six Park questionnaire/risk assessment.
+_Retrieve_ the details of a question.
 
 ### HTTP Request
 
-`GET https://app.sixpark.com.au/api/v1/questions/:id`
+`GET https://app.sixpark.com.au/api/v1/questionnaire/questions/:id`
 
 ### Parameters
 
-Parameter | Description
---------- | -----------
+Not applicable.
 
 ### Summary
 

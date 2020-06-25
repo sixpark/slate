@@ -8,6 +8,7 @@ includes:
   - questions
   - result
   - users
+  - portfolio
 ---
 
 # Basics
@@ -27,7 +28,7 @@ https://app.sixpark.com.au/api/v1
 Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.
 
 The Six Park API is a [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure) only, [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful API, meaning (generally) URLs are resource-oriented. 
-It returns [JSON](https://www.json.org/json-en.html) encoded responses and uses standard [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [HTTP headers](https://en.wikipedia.org/wiki/Header_(computing)) and [OAuth2](https://en.wikipedia.org/wiki/OAuth) for authorisation/authentication.
+It accepts [form-encoded](https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms) request bodies, returns [JSON](https://www.json.org/json-en.html) encoded responses and uses standard [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [HTTP headers](https://en.wikipedia.org/wiki/Header_(computing)) and [OAuth2](https://en.wikipedia.org/wiki/OAuth) for authorisation/authentication.
 
 You must be pre-approved to use the API. If you are approved you will be assigned a `client_id` and a `client_secret`, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.
 
@@ -45,8 +46,7 @@ We've provided language bindings in Shell but recommend [Postman](https://www.po
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer access_token"
+  --header "Authorization: Bearer access_token"
 ```
 
 > Make sure to replace `access token` with the token returned via the client credentials or the modified authorization code flow.
@@ -65,12 +65,14 @@ Other than Authorization requests, the API expects a valid access token to be in
 You must replace <code>access_token</code> with the Bearer token returned via the client credentials or the modified authorization code flow.
 </aside>
 
-## GET > Client credentials Bearer access token
+## POST > Client credentials Bearer access token
 
 ```shell
-curl "https://app.sixpark.com.au/oauth/token?grant_type=client_credentials"
-  -H "Content-Type: application/json"
-  -H "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
+curl "https://app.sixpark.com.au/oauth/token"
+  --request POST
+  --header "Content-Type: application/x-www-form-urlencoded"
+  --header "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
+  --data-urlencode 'grant_type=client_credentials'
 ```
 
 
@@ -86,18 +88,17 @@ curl "https://app.sixpark.com.au/oauth/token?grant_type=client_credentials"
 }
 ```
 
-_Get_ a client credentials (application) access token to authenticate against client credentials API endpoints.
+_Retrieve_ a client credentials (application) access token to authenticate against client credentials API endpoints.
 
 The endpoint accepts one parameter and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must adhere to the following:
 
 `Authorization: Basic <Base64('client_id:client_secret')>`
 
-
 ### HTTP Request
 
-`GET https://app.sixpark.com.au/oauth/token`
+`POST https://app.sixpark.com.au/oauth/token`
 
-### URL Parameters
+### FORM Parameters
 
 Parameter | Required | Type | Default | Description
 --------- | ----------- | ----------- | ----------- | -----------
@@ -107,7 +108,57 @@ grant_type | yes | string | `no default` | Must be `client_credentials`
 
 Configuration | Value | Description
 --------- | ------- | -----------
+authenticated | no | Not authenticated
+
+## POST > Refresh resource owner Bearer access token
+
+```shell
+curl "https://app.sixpark.com.au/oauth/token"
+  --request POST
+  --header "Content-Type: application/x-www-form-urlencoded"
+  --header "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
+  --data-urlencode 'grant_type=refresh_token'
+  --data-urlencode 'refresh_token=<refresh_token>' \
+```
+
+> A successful (200 HTTP status code) example JSON response body:
+
+```json
+{
+    "access_token": "8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb",
+    "token_type": "Bearer",
+    "expires_in": 7200,
+    "scope": "read",
+    "created_at": 1592809139
+}
+```
+
+_Retrieve_ a client credentials (application) access token to authenticate against client credentials API endpoints via a refresh token.
+
+The endpoint accepts one parameter and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must adhere to the following:
+
+`Authorization: Basic <Base64('client_id:client_secret')>`
+
+### HTTP Request
+
+`POST https://app.sixpark.com.au/oauth/token`
+
+### FORM Parameters
+
+Parameter | Required | Type | Default | Description
+--------- | ----------- | ----------- | ----------- | -----------
+grant_type | yes | string | `no default` | Must be `refresh_token`
+refresh_token | yes | string | `no default` | The `refresh_token`
+
+### Summary
+
+Configuration | Value | Description
+--------- | ------- | -----------
 authenticated | yes | Access is granted via [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
+
+<aside class="notice">
+You must replace <code>refresh_token</code> with the refresh token returned via the modified authorization code flow.
+</aside>
 
 # Errors
 
@@ -135,7 +186,7 @@ Error Code | Description
 401 | Unauthorized - The access token is missing or invalid.
 403 | Forbidden - The access token does not have the permissions to perform the request.
 404 | Not Found - The specified resource could not be found.
-406 | Not Acceptable - The requested a format that isn't json.
+406 | Not Acceptable - The requested format was not JSON.
 422 | Unprocessable Entity - The request was well-formed but was unable to be completed.
 429 | Too Many Requests - The rate at which the API is being accessed is too fast.
 500 | Internal Server Error - We had a problem with our application/API. Try again later.
@@ -161,8 +212,7 @@ Where possible, and generally found as part of resource owner (user) responses, 
 
 ```shell
 curl "https://app.com/api/v1/users?page=1&per_page=100"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer access_token"
+  --header "Authorization: Bearer access_token"
 ```
 
 > An example of an API request using pagination parameters and the response body containing links to related pages

@@ -3,9 +3,8 @@
 ## GET > Get questionnaire result
 
 ```shell
-curl "https://app.sixpark.com.au/api/v1/result"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer <access_token>"
+curl "https://app.sixpark.com.au/api/v1/questionnaire/result"
+  --header "Authorization: Bearer <access_token>"
 ```
 
 > A successful (200 HTTP status code) example JSON response body:
@@ -54,7 +53,8 @@ curl "https://app.sixpark.com.au/api/v1/result"
           "url": "https://assets.sixpark.com.au/factsheets/vgad.pdf"
         }
       }
-    }
+    },
+    "..."
   ],
   "answers": [
     {
@@ -77,25 +77,53 @@ curl "https://app.sixpark.com.au/api/v1/result"
     },
     "..."
   ],
+  "tripwires": [
+    {
+      "text": "It is unusual to seek high-risk investments when...",
+      "answers": [
+        {
+          "id": "EGJkOzOij5PUhMZsjUno",
+          "text": "Mostly concerned with potential...",
+          "question": {
+            "id": "tnEKYuedAjPvB",
+            "text": "Which statement best describes your primary concern...",
+            "description": "This question helps assess your desire for risk..."
+          }
+        },
+        {
+          "id": "QrVhgp9VAw2LOMC7kMPh",
+          "text": "I want to play it safe and protect...",
+          "question": {
+            "id": "tnEKYuedAjPvB",
+            "text": "Which statement BEST describes your current...",
+            "description": "This question helps assess your desire for risk..."
+          }
+        }
+      ]
+    },
+    "..."
+  ],
   "links": {
     "sign_up": "https://...",
     "self": "https://..."
   }
 ```
 
-_Get_ the Six Park questionnaire/risk assessment result.
+_Retrieve_ the Six Park questionnaire/risk assessment result.
 
-The response will reflect back a collection of `answer_ids` as provided in the original request.
+The response will reflect back a collection of `answers` as provided by the originating request.
+
+As part of the response, a collection of `tripwires` may be returned. Tripwires _must_ be shown as part of the customer journey and acknowledged or the answer(s) related to the tripwire, changed.
 
 ### HTTP Request
 
-`GET https://app.sixpark.com.au/api/v1/result`
+`GET https://app.sixpark.com.au/api/v1/questionnaire/result`
 
-### Parameters
+### URL Parameters
 
-Parameter | Default | Description
---------- | ----------- | -----------
-answer_ids | `no default` | A collection of answer ids, ie: `[AG6DpLkUwLCCNyZRhHEi, 4ReX5gCGen2XA13GDQHd]`
+Parameter | Required | Type | Default | Description
+--------- | ----------- | ----------- | ----------- | -----------
+answers | yes | collection | `no default` | A collection of Six Park answer **ids** as returned from the `questions` endpoint
 
 ### Summary
 

@@ -4,9 +4,18 @@
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer <access_token>"
-  --data "{\"email\": \"email@email.com\", \"first_name\": \"FirstName\", \"last_name\": \"LastName\", \"phone_number\": \"0410000000\", \"password\": \"my password is strong\", \"terms_accepted\": true, \"newsletter_signup\": true}"
+  --request POST
+  --header "Content-Type: application/x-www-form-urlencoded"
+  --header "Authorization: Bearer <access_token>"
+  --data-urlencode "email=email@email.com"
+  --data-urlencode "first_name=FirstName"
+  --data-urlencode "last_name=LastName"
+  --data-urlencode "phone_number=0410000000"
+  --data-urlencode "password=my password is strong"
+  --data-urlencode "terms_accepted=true"
+  --data-urlencode "newsletter_signup=true"
+  --data-urlencode "phone_number=0410000000"
+  --data-urlencode "'result': { 'answers': ['X','X'], 'tripwires_accepted': true }"
 
 ```
 
@@ -44,13 +53,22 @@ A successful request to this endpoint will create a Six Park user resource. Once
 
 As part of the response, an `authentication` property is returned which includes the `access token` and `refresh token`.
 
-These credentials are to be persisted within your application and associated to the user so they can be used for resource owner authenticated API endpoints.
+These credentials are to be persisted within your application (for the user) so they can be used for resource owner authenticated API endpoints.
+
+### Validations
+
+Outside of general property validation:
+
+- If the parameter `terms_accepted` is not provided, or provided as `false`, the response will return a HTTP 400 - Bad Request status code.
+
+- If the parameter `result[tripwires_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `tripwires` property, the response will return a HTTP 400 - Bad Request status code.
+
 
 ### HTTP Request
 
 `POST https://app.sixpark.com.au/api/v1/users`
 
-### Parameters
+### FORM Parameters
 
 Parameter | Required | Type | Default | Description
 --------- | ----------- | ----------- | ----------- | -----------
@@ -61,7 +79,8 @@ phone_number | yes | string | `no default` | The user's phone number
 password | yes | string | `no default` | A password
 terms_accepted | no | boolean | false | Whether the terms have been accepted - one of either [ true, false ]
 newsletter_signup | no | boolean | false | Whether to add the user to the Six Park mailing list - one of either [ true, false ]
-
+result[answers] | yes | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
+result[tripwires_accepted] | no | boolean | false | If tripwires were returned via the `result` endpoint, whether they were accepted [ true, false ]
 
 ### Summary
 
@@ -74,8 +93,7 @@ paginated | no |
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users/:id"
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer <access_token>"
+  --header "Authorization: Bearer <access_token>"
 ```
 
 > A successful (200 HTTP status code) example JSON response body:
@@ -100,7 +118,7 @@ curl "https://app.sixpark.com.au/api/v1/users/:id"
 }
 ```
 
-_Get_ a user's details.
+_Retrieve_ details of a user.
 
 ### HTTP Request
 
@@ -108,8 +126,7 @@ _Get_ a user's details.
 
 ### Parameters
 
-Parameter | Description
---------- | -----------
+Not applicable.
 
 ### Summary
 
