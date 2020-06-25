@@ -221,7 +221,10 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-gt-client-credentials-bearer-access-token" class="toc-h2 toc-link" data-title="GET &gt; Client credentials Bearer access token">GET &gt; Client credentials Bearer access token</a>
+                    <a href="#post-gt-client-credentials-bearer-access-token" class="toc-h2 toc-link" data-title="POST &gt; Client credentials Bearer access token">POST &gt; Client credentials Bearer access token</a>
+                  </li>
+                  <li>
+                    <a href="#post-gt-refresh-resource-owner-bearer-access-token" class="toc-h2 toc-link" data-title="POST &gt; Refresh resource owner Bearer access token">POST &gt; Refresh resource owner Bearer access token</a>
                   </li>
               </ul>
           </li>
@@ -273,6 +276,14 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#portfolio" class="toc-h1 toc-link" data-title="Portfolio">Portfolio</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-gt-retrieve-a-user-39-s-portfolio-details" class="toc-h2 toc-link" data-title="GET &gt; Retrieve a user's portfolio details">GET &gt; Retrieve a user's portfolio details</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper">
@@ -292,7 +303,7 @@
 <p>Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.</p>
 
 <p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning (generally) URLs are resource-oriented. 
-It returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a>, <a href="https://en.wikipedia.org/wiki/Header_(computing)">HTTP headers</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
+It accepts <a href="https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">form-encoded</a> request bodies, returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a>, <a href="https://en.wikipedia.org/wiki/Header_(computing)">HTTP headers</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
 
 <p>You must be pre-approved to use the API. If you are approved you will be assigned a <code>client_id</code> and a <code>client_secret</code>, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.</p>
 
@@ -307,8 +318,7 @@ It returns <a href="https://www.json.org/json-en.html">JSON</a> encoded response
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer access_token"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer access_token"</span>
 </code></pre></div>
 <blockquote>
 <p>Make sure to replace <code>access token</code> with the token returned via the client credentials or the modified authorization code flow.</p>
@@ -327,9 +337,11 @@ curl <span class="s2">"api_endpoint_here"</span>
 <aside class="notice">
 You must replace <code>access_token</code> with the Bearer token returned via the client credentials or the modified authorization code flow.
 </aside>
-<h2 id='get-gt-client-credentials-bearer-access-token'>GET &gt; Client credentials Bearer access token</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/oauth/token?grant_type=client_credentials"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"</span>
+<h2 id='post-gt-client-credentials-bearer-access-token'>POST &gt; Client credentials Bearer access token</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/oauth/token"</span>
+  <span class="nt">--request</span> POST
+  <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"</span>
+  <span class="nt">--data-urlencode</span> <span class="s1">'grant_type=client_credentials'</span>
 </code></pre></div>
 <blockquote>
 <p>A successful (200 HTTP status code) example JSON response body:</p>
@@ -342,14 +354,14 @@ You must replace <code>access_token</code> with the Bearer token returned via th
     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592809139</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Get</em> a client credentials (application) access token to authenticate against client credentials API endpoints.</p>
+<p><em>Retrieve</em> a client credentials (application) access token to authenticate against client credentials API endpoints.</p>
 
 <p>The endpoint accepts one parameter and a <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic authentication</a> header which must adhere to the following:</p>
 
 <p><code>Authorization: Basic &lt;Base64(&#39;client_id:client_secret&#39;)&gt;</code></p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://app.sixpark.com.au/oauth/token</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<p><code>POST https://app.sixpark.com.au/oauth/token</code></p>
+<h3 id='form-parameters'>FORM Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -377,10 +389,78 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 </thead><tbody>
 <tr>
 <td>authenticated</td>
+<td>no</td>
+<td>Not authenticated</td>
+</tr>
+</tbody></table>
+<h2 id='post-gt-refresh-resource-owner-bearer-access-token'>POST &gt; Refresh resource owner Bearer access token</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/oauth/token"</span>
+  <span class="nt">--request</span> POST
+  <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"</span>
+  <span class="nt">--data-urlencode</span> <span class="s1">'grant_type=refresh_token'</span>
+  <span class="nt">--data-urlencode</span> <span class="s1">'refresh_token=&lt;refresh_token&gt;'</span> <span class="se">\</span>
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592809139</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><em>Retrieve</em> a client credentials (application) access token to authenticate against client credentials API endpoints via a refresh token.</p>
+
+<p>The endpoint accepts one parameter and a <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic authentication</a> header which must adhere to the following:</p>
+
+<p><code>Authorization: Basic &lt;Base64(&#39;client_id:client_secret&#39;)&gt;</code></p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://app.sixpark.com.au/oauth/token</code></p>
+<h3 id='form-parameters-2'>FORM Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grant_type</td>
+<td>yes</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>Must be <code>refresh_token</code></td>
+</tr>
+<tr>
+<td>refresh_token</td>
+<td>yes</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>The <code>refresh_token</code></td>
+</tr>
+</tbody></table>
+<h3 id='summary-2'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
 <td>yes</td>
 <td>Access is granted via <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic authentication</a></td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+You must replace <code>refresh_token</code> with the refresh token returned via the modified authorization code flow.
+</aside>
 <h1 id='errors'>Errors</h1>
 <blockquote>
 <p>Error API responses may look like this:</p>
@@ -423,7 +503,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 </tr>
 <tr>
 <td>406</td>
-<td>Not Acceptable - The requested a format that isn&#39;t json.</td>
+<td>Not Acceptable - The requested format was not JSON.</td>
 </tr>
 <tr>
 <td>422</td>
@@ -456,8 +536,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 </span></code></pre></div>
 <p>Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.</p>
 <h1 id='pagination'>Pagination</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.com/api/v1/users?page=1&amp;per_page=100"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer access_token"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer access_token"</span>
 </code></pre></div>
 <blockquote>
 <p>An example of an API request using pagination parameters and the response body containing links to related pages</p>
@@ -576,9 +655,8 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <p>Resource mutation API requests will trigger resource validations.</p>
 
 <p>For failed requests, the API will return a <a href="https://tools.ietf.org/html/rfc4918">HTTP 422 - Unprocessable Entity</a> status code and associated body containing a collection of errors.</p>
-<h1 id='questions'>Questions</h1><h2 id='get-gt-get-questions-and-associated-multiple-choice-answers'>GET &gt; Get questions and associated multiple choice answers</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questions"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+<h1 id='questions'>Questions</h1><h2 id='get-gt-get-questions-and-associated-multiple-choice-answers'>GET &gt; Get questions and associated multiple choice answers</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/questions"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
 <p>A successful (200 HTTP status code) example JSON response body:</p>
@@ -616,10 +694,10 @@ You must replace <code>access_token</code> with the Bearer token returned via th
     </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Get</em> a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.</p>
+<p><em>Retrieve</em> a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://app.sixpark.com.au/api/v1/questions</code></p>
-<h3 id='parameters'>Parameters</h3>
+<p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/questions</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -656,9 +734,8 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='get-gt-retrieve-a-question-and-associated-multiple-choice-answers'>GET &gt; Retrieve a question and associated multiple choice answers</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questions/:id"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+<h2 id='get-gt-retrieve-a-question-and-associated-multiple-choice-answers'>GET &gt; Retrieve a question and associated multiple choice answers</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
 <p>A successful (200 HTTP status code) example JSON response body:</p>
@@ -686,17 +763,11 @@ You must replace <code>access_token</code> with the Bearer token returned via th
     </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Get</em> a singular question and the associated answers collection as per the Six Park questionnaire/risk assessment.</p>
+<p><em>Retrieve</em> the details of a question.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://app.sixpark.com.au/api/v1/questions/:id</code></p>
-<h3 id='parameters-2'>Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-</tbody></table>
+<p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/questions/:id</code></p>
+<h3 id='parameters'>Parameters</h3>
+<p>Not applicable.</p>
 <h3 id='summary-2'>Summary</h3>
 <table><thead>
 <tr>
@@ -716,9 +787,8 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='result'>Result</h1><h2 id='get-gt-get-questionnaire-result'>GET &gt; Get questionnaire result</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/result"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+<h1 id='result'>Result</h1><h2 id='get-gt-get-questionnaire-result'>GET &gt; Get questionnaire result</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/result"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
 <p>A successful (200 HTTP status code) example JSON response body:</p>
@@ -766,7 +836,8 @@ You must replace <code>access_token</code> with the Bearer token returned via th
           </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://assets.sixpark.com.au/factsheets/vgad.pdf"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"..."</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -789,28 +860,60 @@ You must replace <code>access_token</code> with the Bearer token returned via th
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"..."</span><span class="w">
   </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"tripwires"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It is unusual to seek high-risk investments when..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EGJkOzOij5PUhMZsjUno"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mostly concerned with potential..."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Which statement best describes your primary concern..."</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This question helps assess your desire for risk..."</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QrVhgp9VAw2LOMC7kMPh"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I want to play it safe and protect..."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Which statement BEST describes your current..."</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This question helps assess your desire for risk..."</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"sign_up"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
     </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Get</em> the Six Park questionnaire/risk assessment result.</p>
+<p><em>Retrieve</em> the Six Park questionnaire/risk assessment result.</p>
 
-<p>The response will reflect back a collection of <code>answer_ids</code> as provided in the original request.</p>
+<p>The response will reflect back a collection of <code>answers</code> as provided by the originating request.</p>
+
+<p>As part of the response, a collection of <code>tripwires</code> may be returned. Tripwires <em>must</em> be shown as part of the customer journey and acknowledged or the answer(s) related to the tripwire, changed.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://app.sixpark.com.au/api/v1/result</code></p>
-<h3 id='parameters'>Parameters</h3>
+<p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/result</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>answer_ids</td>
+<td>answers</td>
+<td>yes</td>
+<td>collection</td>
 <td><code>no default</code></td>
-<td>A collection of answer ids, ie: <code>[AG6DpLkUwLCCNyZRhHEi, 4ReX5gCGen2XA13GDQHd]</code></td>
+<td>A collection of Six Park answer <strong>ids</strong> as returned from the <code>questions</code> endpoint</td>
 </tr>
 </tbody></table>
 <h3 id='summary'>Summary</h3>
@@ -833,9 +936,18 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='post-gt-create-a-new-six-park-user'>POST &gt; Create a new Six Park user</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
-  <span class="nt">--data</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">email</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">email@email.com</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">first_name</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">FirstName</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">last_name</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">LastName</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">phone_number</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">0410000000</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">password</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">my password is strong</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">terms_accepted</span><span class="se">\"</span><span class="s2">: true, </span><span class="se">\"</span><span class="s2">newsletter_signup</span><span class="se">\"</span><span class="s2">: true}"</span>
+  <span class="nt">--request</span> POST
+  <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"email=email@email.com"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"first_name=FirstName"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"last_name=LastName"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"phone_number=0410000000"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"password=my password is strong"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"terms_accepted=true"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"newsletter_signup=true"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"phone_number=0410000000"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"'result': { 'answers': ['X','X'], 'tripwires_accepted': true }"</span>
 
 </code></pre></div>
 <blockquote>
@@ -871,10 +983,17 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 
 <p>As part of the response, an <code>authentication</code> property is returned which includes the <code>access token</code> and <code>refresh token</code>.</p>
 
-<p>These credentials are to be persisted within your application and associated to the user so they can be used for resource owner authenticated API endpoints.</p>
+<p>These credentials are to be persisted within your application (for the user) so they can be used for resource owner authenticated API endpoints.</p>
+<h3 id='validations'>Validations</h3>
+<p>Outside of general property validation:</p>
+
+<ul>
+<li><p>If the parameter <code>terms_accepted</code> is not provided, or provided as <code>false</code>, the response will return a HTTP 400 - Bad Request status code.</p></li>
+<li><p>If the parameter <code>result[tripwires_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>tripwires</code> property, the response will return a HTTP 400 - Bad Request status code.</p></li>
+</ul>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://app.sixpark.com.au/api/v1/users</code></p>
-<h3 id='parameters'>Parameters</h3>
+<h3 id='form-parameters'>FORM Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -933,6 +1052,20 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <td>false</td>
 <td>Whether to add the user to the Six Park mailing list - one of either [ true, false ]</td>
 </tr>
+<tr>
+<td>result[answers]</td>
+<td>yes</td>
+<td>collection</td>
+<td><code>no default</code></td>
+<td>A collection of Six Park answer <strong>ids</strong> as reflected back from the <code>result</code> endpoint</td>
+</tr>
+<tr>
+<td>result[tripwires_accepted]</td>
+<td>no</td>
+<td>boolean</td>
+<td>false</td>
+<td>If tripwires were returned via the <code>result</code> endpoint, whether they were accepted [ true, false ]</td>
+</tr>
 </tbody></table>
 <h3 id='summary'>Summary</h3>
 <table><thead>
@@ -954,8 +1087,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 </tr>
 </tbody></table>
 <h2 id='get-gt-retrieve-a-user-39-s-details'>GET &gt; Retrieve a user&#39;s details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:id"</span>
-  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
 <p>A successful (200 HTTP status code) example JSON response body:</p>
@@ -978,18 +1110,103 @@ You must replace <code>access_token</code> with the Bearer token returned via th
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Get</em> a user&#39;s details.</p>
+<p><em>Retrieve</em> details of a user.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://app.sixpark.com.au/api/v1/users/:id</code></p>
-<h3 id='parameters-2'>Parameters</h3>
+<h3 id='parameters'>Parameters</h3>
+<p>Not applicable.</p>
+<h3 id='summary-2'>Summary</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Configuration</th>
+<th>Value</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
 </tbody></table>
-<h3 id='summary-2'>Summary</h3>
+<h1 id='portfolio'>Portfolio</h1><h2 id='get-gt-retrieve-a-user-39-s-portfolio-details'>GET &gt; Retrieve a user&#39;s portfolio details</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users/:id/portfolio"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">13724.0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"capital_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">1046.74</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"capital_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.48</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payout_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.65</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payout_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.13</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-18.93</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.14</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">1045.46</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.48</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-01"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-01"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"holdings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VGAD"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Intl Equities (Hedged"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">500.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"capital_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-2.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"capital_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payout_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payout_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-2.0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.4</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"cash_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Macquarie..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">-1289.3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AU$"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><em>Retrieve</em> details of a user&#39;s portfolio and performance.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://app.sixpark.com.au/api/v1/users/:id/portfolio</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start_date</td>
+<td>no</td>
+<td>date</td>
+<td>inception</td>
+<td>Start date (format <code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>no</td>
+<td>date</td>
+<td>today</td>
+<td>End date (format <code>YYYY-MM-DD</code>)</td>
+</tr>
+</tbody></table>
+<h3 id='summary'>Summary</h3>
 <table><thead>
 <tr>
 <th>Configuration</th>
