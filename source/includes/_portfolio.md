@@ -1,9 +1,9 @@
 # Portfolio
 
-## GET > Retrieve a user's portfolio details
+## GET > Retrieve a user's account portfolio details
 
 ```shell
-curl "https://app.sixpark.com.au/api/v1/users/:id/portfolio"
+curl "https://app.sixpark.com.au/api/v1/users/:user_id/account/:account_id/portfolio"
   --header "Authorization: Bearer <access_token>"
 ```
 
@@ -45,7 +45,11 @@ curl "https://app.sixpark.com.au/api/v1/users/:id/portfolio"
       "value": -1289.3,
       "currency": "AU$"
     }
-  ]
+  ],
+  "links": {
+    "user": "https://...",
+    "self": "https://..."
+  }
 }
 ```
 
@@ -53,7 +57,7 @@ _Retrieve_ details of a user's portfolio and performance.
 
 ### HTTP Request
 
-`GET https://app.sixpark.com.au/api/v1/users/:id/portfolio`
+`GET https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/portfolio`
 
 ### URL Parameters
 

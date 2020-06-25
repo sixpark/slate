@@ -1,6 +1,6 @@
 # Users
 
-## POST > Create a new Six Park user
+## POST > Create a new user
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users"
@@ -34,7 +34,8 @@ curl "https://app.sixpark.com.au/api/v1/users"
       "display_name": "FirstName LastName",
       "onboarded": false,
       "links": {
-        "performance": "https://..."
+        "portfolio": "https://...",
+        "self": "https://..."
       }
     }
   ],
@@ -45,6 +46,9 @@ curl "https://app.sixpark.com.au/api/v1/users"
     "refresh_token": "8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAc1I",
     "scope": "read write",
     "created_at": 1592809139
+  },
+  "links": {
+    "self": "https://..."
   }
 }
 ```
@@ -61,7 +65,7 @@ Outside of general property validation:
 
 - If the parameter `terms_accepted` is not provided, or provided as `false`, the response will return a HTTP 400 - Bad Request status code.
 
-- If the parameter `result[tripwires_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `tripwires` property, the response will return a HTTP 400 - Bad Request status code.
+- If the `result[answers]` parameter is provided and the `result[tripwires_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `tripwires` property, the response will return a HTTP 400 - Bad Request status code.
 
 
 ### HTTP Request
@@ -79,7 +83,7 @@ phone_number | yes | string | `no default` | The user's phone number
 password | yes | string | `no default` | A password
 terms_accepted | no | boolean | false | Whether the terms have been accepted - one of either [ true, false ]
 newsletter_signup | no | boolean | false | Whether to add the user to the Six Park mailing list - one of either [ true, false ]
-result[answers] | yes | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
+result[answers] | no | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
 result[tripwires_accepted] | no | boolean | false | If tripwires were returned via the `result` endpoint, whether they were accepted [ true, false ]
 
 ### Summary
@@ -105,16 +109,9 @@ curl "https://app.sixpark.com.au/api/v1/users/:id"
   "first_name": "FirstName",
   "last_name": "LastName",
   "phone_number": "0410000000",
-  "accounts": [
-    {
-      "id": "5cbcb043-4e20-46d6-9d85-71018debad6c",
-      "display_name": "FirstName LastName",
-      "onboarded": false,
-      "links": {
-        "performance": "https://..."
-      }
-    }
-  ]
+  "links": {
+    "self": "https://..."
+  }
 }
 ```
 

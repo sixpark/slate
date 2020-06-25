@@ -8,6 +8,7 @@ includes:
   - questions
   - result
   - users
+  - accounts
   - portfolio
 ---
 
