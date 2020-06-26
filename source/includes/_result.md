@@ -149,7 +149,7 @@ paginated | no |
 
 Property | Type | Description
 --------- | ----------- | -----------
-name | string | The name of Portfolio - one of [ 'Convervative', 'Converative Balanced', 'Balanced', 'Balanced Growth', 'Aggresive Growth' ]
+name | string | The name of Portfolio - one of [ 'Conservative', 'Conservative Balanced', 'Balanced', 'Balanced Growth', 'Aggressive Growth' ]
 performance | object | The performance object
 performance[window] | string | For how many years performance is being reported - one of [ '1 year', '3 years', '5 years' ]
 performance[annualised_return_percent] | float | Percentage return - precision to 2 decimal places
@@ -173,7 +173,7 @@ documents[fact_sheet] | string | The fact sheet document
 documents[fact_sheet[content_type]] | string | The content type of the document
 documents[fact_sheet[url]] | string | The link to the document
 answers | collection | The set of answers reflected back as part of the originating request
-answers[id] | string | Unique identifer for the answer object
+answers[id] | string | Unique identifier for the answer object
 answers[text] | string | The answer text
 answers[question[id]] | string | Unique identifier for the question object
 answers[question[text]] | string | The question text

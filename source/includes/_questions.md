@@ -66,7 +66,7 @@ paginated | no |
 Property | Type | Description
 --------- | ----------- | -----------
 questions | collection | A collection of questions
-questions[id] | string | Unique identifer for the question object
+questions[id] | string | Unique identifier for the question object
 questions[text] | string | The question text
 questions[description] | string | Context as to why this question is asked
 questions[answers] | collection | Multiple choice answers associated with the question
@@ -130,7 +130,7 @@ paginated | no |
 Property | Type | Description
 --------- | ----------- | -----------
 question | object | The question object
-question[id] | string | Unique identifer for the question object
+question[id] | string | Unique identifier for the question object
 question[text] | string | The question text
 question[description] | string | Context as to why this question is asked
 question[answers] | collection | Multiple choice answers associated with the question
