@@ -72,3 +72,9 @@ Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | resource owner | Access is granted via the resource owner's access token
 paginated | no |
+
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+

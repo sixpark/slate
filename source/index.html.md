@@ -91,7 +91,7 @@ curl "https://app.sixpark.com.au/oauth/token"
 
 _Retrieve_ a client credentials (application) access token to authenticate against client credentials API endpoints.
 
-The endpoint accepts one parameter and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must adhere to the following:
+The endpoint accepts one parameter and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must be in the following format:
 
 `Authorization: Basic <Base64('client_id:client_secret')>`
 
@@ -111,7 +111,17 @@ Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | no | Not authenticated
 
-## POST > Refresh resource owner Bearer access token
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+access_token | string | The access token to include in authorized requests
+token_type | string | Always `Bearer`
+expires_in | integer | The number of seconds the access token is valid for
+scope | string | The scopes, either `[ read, write ]`, the access token is/are valid for
+created_at | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) of when the token was issued
+
+## POST > Refresh resource owner access token
 
 ```shell
 curl "https://app.sixpark.com.au/oauth/token"
@@ -129,14 +139,15 @@ curl "https://app.sixpark.com.au/oauth/token"
     "access_token": "8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb",
     "token_type": "Bearer",
     "expires_in": 7200,
+    "refresh_token": "ik8StCrDnKrI5uLWdxaTx3bOWHIipDnwTl5Pn2ozpRs",
     "scope": "read",
     "created_at": 1592809139
 }
 ```
 
-_Retrieve_ a client credentials (application) access token to authenticate against client credentials API endpoints via a refresh token.
+_Retrieve_ a resource owner access token to authenticate against resource owner API endpoints via a refresh token.
 
-The endpoint accepts one parameter and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must adhere to the following:
+The endpoint accepts two parameters and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must be in the following format:
 
 `Authorization: Basic <Base64('client_id:client_secret')>`
 
@@ -156,6 +167,17 @@ refresh_token | yes | string | `no default` | The `refresh_token`
 Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | yes | Access is granted via [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
+
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+access_token | string | The access token to include in authorized requests
+token_type | string | Always `Bearer`
+expires_in | integer | The number of seconds the access token is valid for
+refresh_token | string | The refresh token which is exchanged for a new access token
+scope | string | The scopes, either `[ read, write ]`, the access token is/are valid for
+created_at | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) of when the token was issued
 
 <aside class="notice">
 You must replace <code>refresh_token</code> with the refresh token returned via the modified authorization code flow.
@@ -201,7 +223,7 @@ Error Code | Description
 {
   "..."
   "links": {
-    "questionnaire": "https://...",
+    "questions": "https://...",
     "results": "https://..."
   }
 }

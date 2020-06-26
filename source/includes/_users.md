@@ -15,7 +15,7 @@ curl "https://app.sixpark.com.au/api/v1/users"
   --data-urlencode "terms_accepted=true"
   --data-urlencode "newsletter_signup=true"
   --data-urlencode "phone_number=0410000000"
-  --data-urlencode "'result': { 'answers': ['X','X'], 'tripwires_accepted': true }"
+  --data-urlencode "'result': { 'answers': ['X','X'], 'conflicts_accepted': true }"
 
 ```
 
@@ -32,7 +32,7 @@ curl "https://app.sixpark.com.au/api/v1/users"
     {
       "id": "5cbcb043-4e20-46d6-9d85-71018debad6c",
       "display_name": "FirstName LastName",
-      "onboarded": false,
+      "open": false,
       "links": {
         "portfolio": "https://...",
         "self": "https://..."
@@ -59,13 +59,18 @@ As part of the response, an `authentication` property is returned which includes
 
 These credentials are to be persisted within your application (for the user) so they can be used for resource owner authenticated API endpoints.
 
+This endpoint is flexible in the parameters it accepts and caters for the following scenarios:
+
+* **Create a user**: a newly created and associated account is returned in the response. The account has no associated result and so the questionnaire must be finished before onboarding can commence.
+* **Create a user and assign a result to the newly created account**: the account has an associated result and onboarding can commence.
+
 ### Validations
 
 Outside of general property validation:
 
 - If the parameter `terms_accepted` is not provided, or provided as `false`, the response will return a HTTP 400 - Bad Request status code.
 
-- If the `result[answers]` parameter is provided and the `result[tripwires_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `tripwires` property, the response will return a HTTP 400 - Bad Request status code.
+- If the `result[answers]` parameter is provided and the `result[conflicts_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `conflicts` property, the response will return a HTTP 400 - Bad Request status code.
 
 
 ### HTTP Request
@@ -84,7 +89,7 @@ password | yes | string | `no default` | A password
 terms_accepted | no | boolean | false | Whether the terms have been accepted - one of either [ true, false ]
 newsletter_signup | no | boolean | false | Whether to add the user to the Six Park mailing list - one of either [ true, false ]
 result[answers] | no | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
-result[tripwires_accepted] | no | boolean | false | If tripwires were returned via the `result` endpoint, whether they were accepted [ true, false ]
+result[conflicts_accepted] | no | boolean | false | If conflicts were returned via the `result` endpoint, whether they were accepted [ true, false ]
 
 ### Summary
 
@@ -92,6 +97,30 @@ Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | client credentials | Access is granted via a client credentials access token
 paginated | no | 
+
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+id | string | Unique identifier for the user object
+email | string | The user's email
+first_name | string | The user's first name
+last_name | string | The user's last name
+phone_number | string | The user's phone number
+accounts | collection | The collection of accounts associated to the user
+accounts[id] | string | Unique identifier for the account object
+accounts[display_name] | string | A display name for this account
+accounts[open] | boolean | Whether this account is open
+accounts[links] | object | Links to related endpoints
+accounts[links[portfolio]] | string | The endpoint where to retrieve details about the portfolio
+authentication | object | The authentication object
+authentication[access_token] | string | The access token to include in authorized requests
+authentication[token_type] | string | Always `Bearer`
+authentication[expires_in] | integer | The number of seconds the access token is valid for
+authentication[refresh_token] | string | The refresh token which is exchanged for a new access token
+authentication[scope] | string | The scopes, either `[ read, write ]`, the access token is/are valid for
+authentication[created_at] | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) of when the token was issued
+
 
 ## GET > Retrieve a user's details
 
@@ -131,3 +160,14 @@ Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | resource owner | Access is granted via the resource owner's access token
 paginated | no |
+
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+id | string | Unique identifier for the user object
+email | string | The user's email
+first_name | string | The user's first name
+last_name | string | The user's last name
+phone_number | string | The user's phone number
+links | object | Links to related endpoints

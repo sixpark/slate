@@ -20,12 +20,10 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
         {
           "id": "AG6DpLkUwLCCNyZRhHEi",
           "text": "18-25 yrs",
-          "description": "Generally, younger investors are considered to have a greater capacity for risk..."
         },
         {
           "id": "4ReX5gCGen2XA13GDQHd",
           "text": "26-35 yrs",
-          "description": "Generally, younger investors are considered to have a greater capacity for risk..."
         }
       ],
       "links": {
@@ -44,7 +42,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
   }
 ```
 
-_Retrieve_ a set of questions and associated answers collection as per the Six Park questionnaire/risk assessment.
+_Retrieve_ a set of questions and associated answers as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 
@@ -62,6 +60,21 @@ Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | client credentials | Access is granted via a client credentials access token
 paginated | no | 
+
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+questions | collection | A collection of questions
+questions[id] | string | Unique identifer for the question object
+questions[text] | string | The question text
+questions[description] | string | Context as to why this question is asked
+questions[answers] | collection | Multiple choice answers associated with the question
+questions[answers[id]] | string | Unique identifier for the answer object
+questions[answers[text]] | string | The answer text
+links | object | Links to related endpoints
+links[result] | string | The endpoint where to submit answers, and solicit a result
+
 
 ## GET > Retrieve a question and associated multiple choice answers
 
@@ -82,12 +95,10 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
       {
         "id": "AG6DpLkUwLCCNyZRhHEi",
         "text": "18-25 yrs",
-        "description": "Generally, younger investors are considered to have a greater capacity for risk..."
       },
       {
         "id": "4ReX5gCGen2XA13GDQHd",
         "text": "26-35 yrs",
-        "description": "Generally, younger investors are considered to have a greater capacity for risk..."
       }
     ]
   },
@@ -97,7 +108,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
   }
 ```
 
-_Retrieve_ the details of a question.
+_Retrieve_ details of a question and associated answers as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 
@@ -113,3 +124,17 @@ Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | client credentials | Access is granted via a client credentials access token
 paginated | no |
+
+### 200 HTTP status code properties
+
+Property | Type | Description
+--------- | ----------- | -----------
+question | object | The question object
+question[id] | string | Unique identifer for the question object
+question[text] | string | The question text
+question[description] | string | Context as to why this question is asked
+question[answers] | collection | Multiple choice answers associated with the question
+question[answers[id]] | string | Unique identifier for the answer object
+question[answers[text]] | string | The answer text
+links | object | Links to related endpoints
+links[questions] | string | Link to all questions
