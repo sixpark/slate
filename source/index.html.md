@@ -56,7 +56,7 @@ Applications that request an access token via the client credentials flow will b
 
 Applications that have acquired a resource owner access token will be granted access to resource owner (user) endpoints.
 
-Other than Authorization requests, the API expects a valid access token to be included in all other API requests via a Bearer header:
+Other than Authorization requests, the API expects a valid access token to be included in all other API requests via an Authorization header:
 
 `Authorization: Bearer access_token`
 
@@ -143,7 +143,7 @@ curl "https://app.sixpark.com.au/oauth/token"
 }
 ```
 
-_Retrieve_ a resource owner access token to authenticate against resource owner API endpoints via a refresh token.
+_Retrieve_ a resource owner access token to authenticate against resource owner API endpoints using a refresh token.
 
 The endpoint accepts two parameters and a [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) header which must be in the following format:
 
