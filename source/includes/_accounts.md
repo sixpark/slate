@@ -95,7 +95,7 @@ Outside of general property validation:
 
 ### HTTP Request
 
-`POST https://app.sixpark.com.au/api/v1/users`
+`POST https://app.sixpark.com.au/api/v1/users/:user_id/accounts`
 
 ### FORM Parameters
 
@@ -159,7 +159,7 @@ Outside of general property validation:
 
 ### HTTP Request
 
-`POST https://app.sixpark.com.au/api/v1/users`
+`POST https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/results`
 
 ### FORM Parameters
 

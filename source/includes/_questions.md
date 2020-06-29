@@ -42,7 +42,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
   }
 ```
 
-_Retrieve_ a set of questions and associated answers as per the Six Park questionnaire/risk assessment.
+_Retrieve_ a set of questions and multiple choice answers as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 
@@ -108,7 +108,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
   }
 ```
 
-_Retrieve_ details of a question and associated answers as per the Six Park questionnaire/risk assessment.
+_Retrieve_ details of a question and multiple choice answers as per the Six Park questionnaire/risk assessment.
 
 ### HTTP Request
 

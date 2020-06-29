@@ -33,9 +33,7 @@ It accepts [form-encoded](https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_subm
 
 You must be pre-approved to use the API. If you are approved you will be assigned a `client_id` and a `client_secret`, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.
 
-You can request approval by emailing [developers@sixpark.com.au](mailto:developers@sixpark.com.au?subject=API%20access).
-
-The API specification version is currently V1 (draft), therefore all non-authorization endpoints will contain `/api/v1` in the URL path.
+The API specification version is currently V1, meaning most endpoints will contain `/api/v1` in the URL path.
 
 We've provided language bindings in Shell but recommend [Postman](https://www.postman.com) and have included a Postman collection with this documentation. You can view Shell code examples in the dark area to the right.
 
@@ -229,7 +227,7 @@ Error Code | Description
 }
 ```
 
-Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.
+Where possible, the API will adhere to the [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.
 
 # Pagination
 
@@ -299,7 +297,7 @@ When an application exceeds the rate limit for an endpoint, the API will return 
 https://app.sixpark.com.au/api/v1
 ```
 
-The API specification version is currently V1 (draft), therefore all endpoints will contain `/api/v1` in the URL path.
+The API specification version is currently V1, therefore all endpoints will contain `/api/v1` in the URL path.
 
 When backwards-incompatible changes are made to the API, a new version is released.
 

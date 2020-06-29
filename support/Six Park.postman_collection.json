@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "15f0ec3a-1fbf-4aa2-94d0-1c1e050a9f14",
+		"name": "Six Park",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Client Credentials access token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6625151c-8423-450d-bfe7-d8fcb928125d",
+						"exec": [
+							"postman.clearEnvironmentVariable(\"access_token\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{oauth_url}}?grant_type=client_credentials",
+					"host": [
+						"{{oauth_url}}"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bearer token from refresh token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "18442c5e-8e8e-4d55-b390-ec586b8b92ec",
+						"exec": [
+							"postman.clearEnvironmentVariable(\"access_token\");",
+							"postman.clearEnvironmentVariable(\"refresh_token\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "refresh_token",
+							"value": "{{refresh_token}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{oauth_url}}",
+					"host": [
+						"{{oauth_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Quetionnaire questions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/questionnaire/questions",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"questionnaire",
+						"questions"
+					],
+					"query": [
+						{
+							"key": "investor_type",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Quetionnaire question",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/questionnaire/question/:id",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"questionnaire",
+						"question",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Quetionnaire result",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/questionnaire/result",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"questionnaire",
+						"result"
+					],
+					"query": [
+						{
+							"key": "answers",
+							"value": "[X,Y]",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "first_name",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "last_name",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "phone_number",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "terms_accepted",
+							"value": "false",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "newsletter_signup",
+							"value": "true",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "result",
+							"value": "{ 'answers': ['X','X'], 'conflicts_accepted': true }",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api_url}}/users",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/:id",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/:user_id/accounts",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						":user_id",
+						"accounts"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/:user_id/accounts/:account_id",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						":user_id",
+						"accounts",
+						":account_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": ""
+						},
+						{
+							"key": "account_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new account for an existing user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "answers",
+							"value": "[X,Y]",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "conflicts_accepted",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api_url}}/users/:user_id/accounts",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						":user_id",
+						"accounts"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new result for an existing account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "answers",
+							"value": "[X,Y]",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "conflicts_accepted",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api_url}}/users/:user_id/accounts/:account_id/results",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						":user_id",
+						"accounts",
+						":account_id",
+						"results"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": ""
+						},
+						{
+							"key": "account_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User account portfolio",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/:user_id/accounts/:account_id/portfolio",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						":user_id",
+						"accounts",
+						":account_id",
+						"portfolio"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": ""
+						},
+						{
+							"key": "account_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -52,7 +52,7 @@ curl "https://app.sixpark.com.au/api/v1/users/:user_id/account/:account_id/portf
 }
 ```
 
-_Retrieve_ details of a user's portfolio and performance.
+_Retrieve_ details of a user's currently invested portfolio and performance.
 
 ### HTTP Request
 
