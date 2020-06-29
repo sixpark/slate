@@ -324,11 +324,9 @@ It accepts <a href="https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting
 
 <p>You must be pre-approved to use the API. If you are approved you will be assigned a <code>client_id</code> and a <code>client_secret</code>, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.</p>
 
-<p>You can request approval by emailing <a href="mailto:developers@sixpark.com.au?subject=API%20access">developers@sixpark.com.au</a>.</p>
+<p>The API specification version is currently V1, meaning most endpoints will contain <code>/api/v1</code> in the URL path.</p>
 
-<p>The API specification version is currently V1 (draft), therefore all non-authorization endpoints will contain <code>/api/v1</code> in the URL path.</p>
-
-<p>We&#39;ve provided language bindings in Shell but recommend <a href="https://www.postman.com">Postman</a> and have included a Postman collection with this documentation. You can view Shell code examples in the dark area to the right.</p>
+<p>We&#39;ve provided language bindings in Shell but recommend <a href="https://www.postman.com">Postman</a> and have included a <a href="https://github.com/sixpark/slate/tree/master/support">Postman collection and environment</a> with this documentation. You can view Shell code examples in the dark area to the right.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To access authenticated endpoints, add the Authorization header as shown below:</p>
@@ -625,7 +623,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Where possible, and generally found as part of resource owner (user) responses, the API will adhere to the <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.</p>
+<p>Where possible, the API will adhere to the <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> REST extension. Clients are strongly encouraged to follow the HATEOAS guidelines to loosely couple their integration to the API.</p>
 <h1 id='pagination'>Pagination</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.com/api/v1/users?page=1&amp;per_page=100"</span>
   <span class="nt">--header</span> <span class="s2">"Authorization: Bearer access_token"</span>
 </code></pre></div>
@@ -715,7 +713,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>https://app.sixpark.com.au/api/v1
 </code></pre></div>
-<p>The API specification version is currently V1 (draft), therefore all endpoints will contain <code>/api/v1</code> in the URL path.</p>
+<p>The API specification version is currently V1, therefore all endpoints will contain <code>/api/v1</code> in the URL path.</p>
 
 <p>When backwards-incompatible changes are made to the API, a new version is released.</p>
 
@@ -783,7 +781,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
     </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Retrieve</em> a set of questions and associated answers as per the Six Park questionnaire/risk assessment.</p>
+<p><em>Retrieve</em> a set of questions and multiple choice answers as per the Six Park questionnaire/risk assessment.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/questions</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -904,7 +902,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
     </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Retrieve</em> details of a question and associated answers as per the Six Park questionnaire/risk assessment.</p>
+<p><em>Retrieve</em> details of a question and multiple choice answers as per the Six Park questionnaire/risk assessment.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/questions/:id</code></p>
 <h3 id='parameters'>Parameters</h3>
@@ -1813,7 +1811,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <li>If the parameter <code>result[conflicts_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>conflicts</code> property, the response will return a HTTP 400 - Bad Request status code.</li>
 </ul>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://app.sixpark.com.au/api/v1/users</code></p>
+<p><code>POST https://app.sixpark.com.au/api/v1/users/:user_id/accounts</code></p>
 <h3 id='form-parameters'>FORM Parameters</h3>
 <table><thead>
 <tr>
@@ -1922,7 +1920,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <li>If the parameter <code>result[conflicts_accepted]</code> is not provided, or provided as <code>false</code> and the <code>result</code> endpoint returned a hydrated <code>conflicts</code> property, the response will return a HTTP 400 - Bad Request status code.</li>
 </ul>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://app.sixpark.com.au/api/v1/users</code></p>
+<p><code>POST https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/results</code></p>
 <h3 id='form-parameters-2'>FORM Parameters</h3>
 <table><thead>
 <tr>
@@ -2133,7 +2131,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><em>Retrieve</em> details of a user&#39;s portfolio and performance.</p>
+<p><em>Retrieve</em> details of a user&#39;s currently invested portfolio and performance.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/portfolio</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
