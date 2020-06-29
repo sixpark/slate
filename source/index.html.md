@@ -35,7 +35,7 @@ You must be pre-approved to use the API. If you are approved you will be assigne
 
 The API specification version is currently V1, meaning most endpoints will contain `/api/v1` in the URL path.
 
-We've provided language bindings in Shell but recommend [Postman](https://www.postman.com) and have included a Postman collection with this documentation. You can view Shell code examples in the dark area to the right.
+We've provided language bindings in Shell but recommend [Postman](https://www.postman.com) and have included a [Postman collection and environment](https://github.com/sixpark/slate/tree/master/support) with this documentation. You can view Shell code examples in the dark area to the right.
 
 # Authentication
 
