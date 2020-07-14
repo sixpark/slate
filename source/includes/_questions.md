@@ -4,6 +4,7 @@
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
+  --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 ```
 
@@ -80,6 +81,7 @@ links[result] | string | The endpoint where to submit answers, and solicit a res
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
+  --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 ```
 

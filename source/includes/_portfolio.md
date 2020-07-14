@@ -4,6 +4,7 @@
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users/:user_id/account/:account_id/portfolio"
+  --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 ```
 

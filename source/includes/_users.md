@@ -5,6 +5,7 @@
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users"
   --request POST
+  --header "Accept: application/json"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Bearer <access_token>"
   --data-urlencode "email=email@email.com"
@@ -122,10 +123,11 @@ authentication[scope] | string | The scopes, either `[ read, write ]`, the acces
 authentication[created_at] | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) of when the token was issued
 
 
-## GET > Retrieve a user's details
+## GET > Retrieve the resource owner's details
 
 ```shell
-curl "https://app.sixpark.com.au/api/v1/users/:id"
+curl "https://app.sixpark.com.au/api/v1/users/me"
+  --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 ```
 
@@ -133,22 +135,27 @@ curl "https://app.sixpark.com.au/api/v1/users/:id"
 
 ```json
 {
-  "id": "33047f9a-8be9-41e0-82b5-d6f265f69bea",
-  "email": "email@email.com",
-  "first_name": "FirstName",
-  "last_name": "LastName",
-  "phone_number": "0410000000",
-  "links": {
-    "self": "https://..."
+  "data": {
+    "id": "33047f9a-8be9-41e0-82b5-d6f265f69bea",
+    "type": "user",
+    "attributes": {
+      "email": "email@email.com",
+      "first_name": "FirstName",
+      "last_name": "LastName",
+      "phone_number": "0410000000"
+    },
+    "links": {
+      "self": "https://..."
+    }
   }
 }
 ```
 
-_Retrieve_ details of a user.
+_Retrieve_ details of the resource owner.
 
 ### HTTP Request
 
-`GET https://app.sixpark.com.au/api/v1/users/:id`
+`GET https://app.sixpark.com.au/api/v1/users/me`
 
 ### Parameters
 
@@ -166,8 +173,9 @@ paginated | no |
 Property | Type | Description
 --------- | ----------- | -----------
 id | string | Unique identifier for the user object
-email | string | The user's email
-first_name | string | The user's first name
-last_name | string | The user's last name
-phone_number | string | The user's phone number
+type | string | The object type - always `user`
+attributes[email] | string | The user's email
+attributes[first_name] | string | The user's first name
+attributes[last_name] | string | The user's last name
+attributes[phone_number] | string | The user's phone number
 links | object | Links to related endpoints

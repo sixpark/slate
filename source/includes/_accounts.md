@@ -4,6 +4,7 @@
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts"
+  --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 
 ```
@@ -57,6 +58,7 @@ links[portfolio] | string | The endpoint where to retrieve details about the por
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts"
   --request POST
+  --header "Accept: application/json"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Bearer <access_token>"
   --data-urlencode "answers=[X,Y]"
@@ -126,6 +128,7 @@ links[portfolio] | string | The endpoint where to retrieve details about the por
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/results"
   --request POST
+  --header "Accept: application/json"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Bearer <access_token>"
   --data-urlencode "answers=[X,Y]"
@@ -191,6 +194,7 @@ links[user] | string | The endpoint where to retrieve details about the user
 
 ```shell
 curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id"
+  --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 ```
 

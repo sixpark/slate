@@ -69,6 +69,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 ```shell
 curl "https://app.sixpark.com.au/oauth/token"
   --request POST
+  --header "Accept: application/json"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
   --data-urlencode 'grant_type=client_credentials'
@@ -124,6 +125,7 @@ created_at | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) 
 ```shell
 curl "https://app.sixpark.com.au/oauth/token"
   --request POST
+  --header "Accept: application/json"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
   --data-urlencode 'grant_type=refresh_token'
