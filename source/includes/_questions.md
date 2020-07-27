@@ -12,35 +12,35 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
 
 ```json
 {
-  "questions": [
+  "data": [
     {
       "id": "tnEKYuedAjPvB",
-      "text": "What is your age?",
-      "description": "Generally, younger investors have a greater appetite for...",
-      "answers": [
-        {
-          "id": "AG6DpLkUwLCCNyZRhHEi",
-          "text": "18-25 yrs",
-        },
-        {
-          "id": "4ReX5gCGen2XA13GDQHd",
-          "text": "26-35 yrs",
-        }
-      ],
+      "type": "question",
+      "attributes": {
+        "text": "What is your age?",
+        "description": "Generally, younger investors have a...",
+        "answers": [
+          {
+            "id": "AG6DpLkUwLCCNyZRhHEi",
+            "text": "18-25 yrs"
+          },
+          {
+            "id": "K/7M/F24W8aMRlymNF3U",
+            "text": "36-50 yrs"
+          },
+          "..."
+        ]
+      },
       "links": {
-        "question": "https://..."
+        "self": "/api/v1/questionnaire/questions/tnEKYuedAjPvB"
       }
     },
     "..."
   ],
   "links": {
-    "result": "https://...",
-    "next_page": "https://...",
-    "previous_page": "https://...",
-    "first_page": "https://...",
-    "last_page": "https://...",
-    "self": "https://..."
+    "self": "/api/v1/questionnaire/questions"
   }
+}
 ```
 
 _Retrieve_ a set of questions and multiple choice answers as per the Six Park questionnaire/risk assessment.
@@ -60,20 +60,21 @@ investor_type | no | string | individual | The investor type to tailor the quest
 Configuration | Value | Description
 --------- | ------- | -----------
 authenticated | client credentials | Access is granted via a client credentials access token
-paginated | no | 
+paginated | no |
 
 ### 200 HTTP status code properties
 
 Property | Type | Description
 --------- | ----------- | -----------
-questions | collection | A collection of questions
-questions[id] | string | Unique identifier for the question object
-questions[text] | string | The question text
-questions[description] | string | Context as to why this question is asked
-questions[answers] | collection | Multiple choice answers associated with the question
-questions[answers[id]] | string | Unique identifier for the answer object
-questions[answers[text]] | string | The answer text
+data | collection | A collection of questions
+data[id] | string | Unique identifier for the question object
+data[text] | string | The question text
+data[description] | string | Context as to why this question is asked
+data[answers] | collection | Multiple choice answers associated with the question
+data[answers[id]] | string | Unique identifier for the answer object
+data[answers[text]] | string | The answer text
 links | object | Links to related endpoints
+links[self] | string | Link to questions
 links[result] | string | The endpoint where to submit answers, and solicit a result
 
 
@@ -89,25 +90,30 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
 
 ```json
 {
-  "question": {
+  "data": {
     "id": "tnEKYuedAjPvB",
-    "text": "What is your age?",
-    "description": "Generally, younger investors have a greater appetite for...",
-    "answers": [
-      {
-        "id": "AG6DpLkUwLCCNyZRhHEi",
-        "text": "18-25 yrs",
-      },
-      {
-        "id": "4ReX5gCGen2XA13GDQHd",
-        "text": "26-35 yrs",
-      }
-    ]
-  },
-  "links": {
-    "questions": "https://...",
-    "self": "https://..."
+    "type": "question",
+    "attributes": {
+      "text": "What is your age?",
+      "description": "Generally, younger investors have a...",
+      "answers": [
+        {
+          "id": "AG6DpLkUwLCCNyZRhHEi",
+          "text": "18-25 yrs"
+        },
+        {
+          "id": "K/7M/F24W8aMRlymNF3U",
+          "text": "36-50 yrs"
+        },
+        "..."
+      ]
+    },
+    "links": {
+      "self": "/api/v1/questionnaire/questions/tnEKYuedAjPvB",
+      "related": "/api/v1/questionnaire/questions
+    }
   }
+}
 ```
 
 _Retrieve_ details of a question and multiple choice answers as per the Six Park questionnaire/risk assessment.
@@ -131,12 +137,13 @@ paginated | no |
 
 Property | Type | Description
 --------- | ----------- | -----------
-question | object | The question object
-question[id] | string | Unique identifier for the question object
-question[text] | string | The question text
-question[description] | string | Context as to why this question is asked
-question[answers] | collection | Multiple choice answers associated with the question
-question[answers[id]] | string | Unique identifier for the answer object
-question[answers[text]] | string | The answer text
+data | object | The question object
+data[id] | string | Unique identifier for the question object
+data[text] | string | The question text
+data[description] | string | Context as to why this question is asked
+data[answers] | collection | Multiple choice answers associated with the question
+data[answers[id]] | string | Unique identifier for the answer object
+data[answers[text]] | string | The answer text
 links | object | Links to related endpoints
-links[questions] | string | Link to all questions
+links[related] | string | Link to all questions
+links[self] | string | Link to question
