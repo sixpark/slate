@@ -32,13 +32,13 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
         ]
       },
       "links": {
-        "self": "/api/v1/questionnaire/questions/tnEKYuedAjPvB"
+        "self": "https://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB"
       }
     },
     "..."
   ],
   "links": {
-    "self": "/api/v1/questionnaire/questions"
+    "self": "https://app.sixpark.com.au/api/v1/questionnaire/questions"
   }
 }
 ```
@@ -109,8 +109,8 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
       ]
     },
     "links": {
-      "self": "/api/v1/questionnaire/questions/tnEKYuedAjPvB",
-      "related": "/api/v1/questionnaire/questions
+      "self": "https://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB",
+      "related": "https://app.sixpark.com.au/api/v1/questionnaire/questions"
     }
   }
 }
