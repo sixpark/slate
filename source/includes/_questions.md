@@ -38,7 +38,8 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
     "..."
   ],
   "links": {
-    "self": "https://app.sixpark.com.au/api/v1/questionnaire/questions"
+    "self": "https://app.sixpark.com.au/api/v1/questionnaire/questions",
+    "result": "https://app.sixpark.com.au/api/v1/questionnaire/results/:id"
   }
 }
 ```
@@ -68,11 +69,12 @@ Property | Type | Description
 --------- | ----------- | -----------
 data | collection | A collection of questions
 data[id] | string | Unique identifier for the question object
-data[text] | string | The question text
-data[description] | string | Context as to why this question is asked
-data[answers] | collection | Multiple choice answers associated with the question
-data[answers[id]] | string | Unique identifier for the answer object
-data[answers[text]] | string | The answer text
+data[type] | string | Type string for the question object
+data[attributes[text]] | string | The question text
+data[attributes[description]] | string | Context as to why this question is asked
+data[attributes[answers]] | collection | Multiple choice answers associated with the question
+data[attributes[answers[id]]] | string | Unique identifier for the answer object
+data[attributes[answers[text]]] | string | The answer text
 links | object | Links to related endpoints
 links[self] | string | Link to questions
 links[result] | string | The endpoint where to submit answers, and solicit a result
@@ -139,11 +141,12 @@ Property | Type | Description
 --------- | ----------- | -----------
 data | object | The question object
 data[id] | string | Unique identifier for the question object
-data[text] | string | The question text
-data[description] | string | Context as to why this question is asked
-data[answers] | collection | Multiple choice answers associated with the question
-data[answers[id]] | string | Unique identifier for the answer object
-data[answers[text]] | string | The answer text
-links | object | Links to related endpoints
-links[related] | string | Link to all questions
-links[self] | string | Link to question
+data[type] | string | Type string for the question object
+data[attributes[text]] | string | The question text
+data[attributes[description]] | string | Context as to why this question is asked
+data[attributes[answers]] | collection | Multiple choice answers associated with the question
+data[attributes[answers[id]]] | string | Unique identifier for the answer object
+data[attributes[answers[text]]] | string | The answer text
+data[links] | object | Links to related endpoints
+data[links[self]] | string | Link to question
+data[links[related]] | string | Link to all questions
