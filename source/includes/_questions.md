@@ -39,7 +39,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
   ],
   "links": {
     "self": "https://app.sixpark.com.au/api/v1/questionnaire/questions",
-    "result": "https://app.sixpark.com.au/api/v1/questionnaire/results/:id"
+    "results": "https://app.sixpark.com.au/api/v1/questionnaire/results/:id"
   }
 }
 ```
@@ -77,7 +77,7 @@ data[attributes[answers[id]]] | string | Unique identifier for the answer object
 data[attributes[answers[text]]] | string | The answer text
 links | object | Links to related endpoints
 links[self] | string | Link to questions
-links[result] | string | The endpoint where to submit answers, and solicit a result
+links[results] | string | The endpoint where to submit answers, and solicit a result
 
 
 ## GET > Retrieve a question and associated multiple choice answers

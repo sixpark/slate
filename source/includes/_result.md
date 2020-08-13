@@ -154,7 +154,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTn
     ],
   },
   "links": {
-    "self": "http://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTnlaUmhIRWksZE56d1ZhTlNCL3hoWFRya2ZvQjEsSVJZNU9GeHNlSytIWmZVZUNwUXgsR3lEYzBxYnR0dWpSdmdDWkcvTjIsRUdKa096T2lqNVBVaE1ac2pVbm8sSkFIQktpUGlqc08wNGVhMmxxVk0seC9ScXlZbVFVWnpPSU5weVNWY3EsZkp1KzRSU2tueDM0eklPSXE3TW8sdHhxM0pId2VXR3dyTkRjS2VERXosUVJGZ3pUVVFMc29Dd0pRRkRwUU0="
+    "self": "http://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK",
     "sign_up": "sign-up"
   }
 }
