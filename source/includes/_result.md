@@ -14,6 +14,15 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTn
   --header "Authorization: Bearer <access_token>"
 ```
 
+> Incomplete questionnaire error
+
+```json
+{
+    "code": "bad_request",
+    "message": "Bad Request."
+}
+
+```
 > A successful (200 HTTP status code) example JSON response body:
 
 ```json
@@ -173,6 +182,10 @@ As part of the response, a collection of `conflicts` may be returned. Conflicts 
 ### ID generation
 
 The ID to be sent to the results endpoint is a comma separated Base64 safe encoded string of answer Ids
+
+### Validation
+
+All questions must be answered with no duplicates otherwise a 400 Bad request will be returned.
 
 ### Summary
 
