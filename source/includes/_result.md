@@ -88,7 +88,7 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTn
             "attributes": {
               "text": "What is your age?",
               "description": "Generally, younger investors have a greater appetite for..."
-            }
+            },
             "links": {
               "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB",
               "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
