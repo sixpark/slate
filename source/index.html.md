@@ -109,7 +109,7 @@ users.read | Read user data
 users.write | Write user data
 users.accounts.read | Read user accounts data
 users.accounts.write | Write user accounts data
-users.accounts.results.read | Read user accounts result data
+users.accounts.results.write | Write user accounts result data
 users.accounts.portfolio.read | Read user accounts portfolio data
 
 ### FORM Parameters
