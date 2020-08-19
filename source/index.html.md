@@ -28,7 +28,7 @@ https://app.sixpark.com.au/api/v1
 
 Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.
 
-The Six Park API is a [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure) only, [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful API, meaning (generally) URLs are resource-oriented. 
+The Six Park API is a [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure) only, [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful API, meaning (generally) URLs are resource-oriented.
 It accepts [form-encoded](https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms) request bodies, returns [JSON](https://www.json.org/json-en.html) encoded responses and uses standard [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [HTTP headers](https://en.wikipedia.org/wiki/Header_(computing)) and [OAuth2](https://en.wikipedia.org/wiki/OAuth) for authorisation/authentication.
 
 You must be pre-approved to use the API. If you are approved you will be assigned a `client_id` and a `client_secret`, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.
@@ -73,6 +73,7 @@ curl "https://app.sixpark.com.au/oauth/token"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"
   --data-urlencode 'grant_type=client_credentials'
+  --data-urlencode 'scope=questionnaire.questions.read users.read'
 ```
 
 
@@ -83,7 +84,7 @@ curl "https://app.sixpark.com.au/oauth/token"
     "access_token": "8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb",
     "token_type": "Bearer",
     "expires_in": 7200,
-    "scope": "read",
+    "scope": "questionnaire.questions.read users.read",
     "created_at": 1592809139
 }
 ```
@@ -98,11 +99,32 @@ The endpoint accepts one parameter and a [Basic authentication](https://en.wikip
 
 `POST https://app.sixpark.com.au/oauth/token`
 
+### Scopes
+
+Name | Description
+--------- | -----------
+questionnaire.questions.read | Read questionnaire question data
+questionnaire.results.read | Read questionnaire result data
+users.read | Read user data
+users.write | Write user data
+users.accounts.read | Read user accounts data
+users.accounts.write | Write user accounts data
+users.accounts.results.read | Read user accounts result data
+users.accounts.portfolio.read | Read user accounts portfolio data
+
 ### FORM Parameters
 
 Parameter | Required | Type | Default | Description
 --------- | ----------- | ----------- | ----------- | -----------
 grant_type | yes | string | `no default` | Must be `client_credentials`
+scope | no | string | `no default` | Must be one or many scopes separated by a ' '
+
+### Query Parameters
+
+Parameter | Required | Type | Default | Description
+--------- | ----------- | ----------- | ----------- | -----------
+grant_type | yes | string | `no default` | Must be `client_credentials`
+scope | no | string | `no default` | Must be one or many scopes separated by a '+'
 
 ### Summary
 
