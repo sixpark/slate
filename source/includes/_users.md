@@ -119,7 +119,7 @@ authentication[access_token] | string | The access token to include in authorize
 authentication[token_type] | string | Always `Bearer`
 authentication[expires_in] | integer | The number of seconds the access token is valid for
 authentication[refresh_token] | string | The refresh token which is exchanged for a new access token
-authentication[scope] | string | The scopes, one of scopes listed under authentication
+authentication[scope] | string | One or more scopes listed under authentication
 authentication[created_at] | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) of when the token was issued
 
 
