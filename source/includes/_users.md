@@ -45,7 +45,7 @@ curl "https://app.sixpark.com.au/api/v1/users"
     "token_type": "Bearer",
     "expires_in": 194220,
     "refresh_token": "8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAc1I",
-    "scope": "read write",
+    "scope": "users.read",
     "created_at": 1592809139
   },
   "links": {
@@ -119,7 +119,7 @@ authentication[access_token] | string | The access token to include in authorize
 authentication[token_type] | string | Always `Bearer`
 authentication[expires_in] | integer | The number of seconds the access token is valid for
 authentication[refresh_token] | string | The refresh token which is exchanged for a new access token
-authentication[scope] | string | The scopes, either `[ read, write ]`, the access token is/are valid for
+authentication[scope] | string | One or more scopes listed under authentication
 authentication[created_at] | integer | the [Unix time](https://en.wikipedia.org/wiki/Unix_time) of when the token was issued
 
 
