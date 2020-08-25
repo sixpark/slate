@@ -301,6 +301,23 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#post-gt-create-a-new-webhook" class="toc-h2 toc-link" data-title="POST &gt; Create a new webhook">POST &gt; Create a new webhook</a>
+                  </li>
+                  <li>
+                    <a href="#get-gt-retrieve-a-webhook" class="toc-h2 toc-link" data-title="GET &gt; Retrieve a webhook">GET &gt; Retrieve a webhook</a>
+                  </li>
+                  <li>
+                    <a href="#delete-gt-remove-a-webhook-with-the-given-id" class="toc-h2 toc-link" data-title="DELETE &gt; Remove a webhook with the given :id.">DELETE &gt; Remove a webhook with the given <code>:id</code>.</a>
+                  </li>
+                  <li>
+                    <a href="#post-gt-url" class="toc-h2 toc-link" data-title="POST &gt; {url}">POST &gt; <code>{url}</code></a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper">
@@ -319,7 +336,7 @@
 </code></pre></div>
 <p>Welcome to the Six Park API. You can use this API to access the Six Park API endpoints.</p>
 
-<p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning (generally) URLs are resource-oriented. 
+<p>The Six Park API is a <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a> only, <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>ful API, meaning (generally) URLs are resource-oriented.
 It accepts <a href="https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">form-encoded</a> request bodies, returns <a href="https://www.json.org/json-en.html">JSON</a> encoded responses and uses standard <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response codes</a>, <a href="https://en.wikipedia.org/wiki/Header_(computing)">HTTP headers</a> and <a href="https://en.wikipedia.org/wiki/OAuth">OAuth2</a> for authorisation/authentication.</p>
 
 <p>You must be pre-approved to use the API. If you are approved you will be assigned a <code>client_id</code> and a <code>client_secret</code>, synonymous to a username/password combination, which you will exchange for a client credentials access token to access certain API endpoints.</p>
@@ -358,6 +375,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
   <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
   <span class="nt">--header</span> <span class="s2">"Authorization: Basic HVnUjFOMWh2aGVYMWxRNkVPeWhqelRCaDdzaS1w"</span>
   <span class="nt">--data-urlencode</span> <span class="s1">'grant_type=client_credentials'</span>
+  <span class="nt">--data-urlencode</span> <span class="s1">'scope=questionnaire.questions.read users.read'</span>
 </code></pre></div>
 <blockquote>
 <p>A successful (200 HTTP status code) example JSON response body:</p>
@@ -366,7 +384,7 @@ You must replace <code>access_token</code> with the Bearer token returned via th
     </span><span class="nl">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAb"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questionnaire.questions.read users.read"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592809139</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -377,6 +395,46 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <p><code>Authorization: Basic &lt;Base64(&#39;client_id:client_secret&#39;)&gt;</code></p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://app.sixpark.com.au/oauth/token</code></p>
+<h3 id='scopes'>Scopes</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>questionnaire.questions.read</td>
+<td>Read questionnaire question data</td>
+</tr>
+<tr>
+<td>questionnaire.results.read</td>
+<td>Read questionnaire result data</td>
+</tr>
+<tr>
+<td>users.read</td>
+<td>Read user data</td>
+</tr>
+<tr>
+<td>users.write</td>
+<td>Write user data</td>
+</tr>
+<tr>
+<td>users.accounts.read</td>
+<td>Read user accounts data</td>
+</tr>
+<tr>
+<td>users.accounts.write</td>
+<td>Write user accounts data</td>
+</tr>
+<tr>
+<td>users.accounts.results.write</td>
+<td>Write user accounts result data</td>
+</tr>
+<tr>
+<td>users.accounts.portfolio.read</td>
+<td>Read user accounts portfolio data</td>
+</tr>
+</tbody></table>
 <h3 id='form-parameters'>FORM Parameters</h3>
 <table><thead>
 <tr>
@@ -393,6 +451,38 @@ You must replace <code>access_token</code> with the Bearer token returned via th
 <td>string</td>
 <td><code>no default</code></td>
 <td>Must be <code>client_credentials</code></td>
+</tr>
+<tr>
+<td>scope</td>
+<td>no</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>Must be one or many scopes separated by a &#39; &#39;</td>
+</tr>
+</tbody></table>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grant_type</td>
+<td>yes</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>Must be <code>client_credentials</code></td>
+</tr>
+<tr>
+<td>scope</td>
+<td>no</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>Must be one or many scopes separated by a &#39;+&#39;</td>
 </tr>
 </tbody></table>
 <h3 id='summary'>Summary</h3>
@@ -597,6 +687,10 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td>Not Acceptable - The requested format was not JSON.</td>
 </tr>
 <tr>
+<td>415</td>
+<td>Unsupported Media Type - The requested media type is in an unsupported format, ie: not JSON.</td>
+</tr>
+<tr>
 <td>422</td>
 <td>Unprocessable Entity - The request was well-formed but was unable to be completed.</td>
 </tr>
@@ -754,35 +848,36 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <p>A successful (200 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"questions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your age?"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors have a greater appetite for..."</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-25 yrs"</span><span class="p">,</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4ReX5gCGen2XA13GDQHd"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26-35 yrs"</span><span class="p">,</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"question"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your age?"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors have a..."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-25 yrs"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"K/7M/F24W8aMRlymNF3U"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36-50 yrs"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
       </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+        </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"..."</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"next_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"previous_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"first_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/questions"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/results/:id"</span><span class="w">
   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Retrieve</em> a set of questions and multiple choice answers as per the Six Park questionnaire/risk assessment.</p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -833,37 +928,42 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </tr>
 </thead><tbody>
 <tr>
-<td>questions</td>
+<td>data</td>
 <td>collection</td>
 <td>A collection of questions</td>
 </tr>
 <tr>
-<td>questions[id]</td>
+<td>data[id]</td>
 <td>string</td>
 <td>Unique identifier for the question object</td>
 </tr>
 <tr>
-<td>questions[text]</td>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>question</code></td>
+</tr>
+<tr>
+<td>data[attributes[text]]</td>
 <td>string</td>
 <td>The question text</td>
 </tr>
 <tr>
-<td>questions[description]</td>
+<td>data[attributes[description]]</td>
 <td>string</td>
 <td>Context as to why this question is asked</td>
 </tr>
 <tr>
-<td>questions[answers]</td>
+<td>data[attributes[answers]]</td>
 <td>collection</td>
 <td>Multiple choice answers associated with the question</td>
 </tr>
 <tr>
-<td>questions[answers[id]]</td>
+<td>data[attributes[answers[id]]]</td>
 <td>string</td>
 <td>Unique identifier for the answer object</td>
 </tr>
 <tr>
-<td>questions[answers[text]]</td>
+<td>data[attributes[answers[text]]]</td>
 <td>string</td>
 <td>The answer text</td>
 </tr>
@@ -873,7 +973,12 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td>Links to related endpoints</td>
 </tr>
 <tr>
-<td>links[result]</td>
+<td>links[self]</td>
+<td>string</td>
+<td>Link to questions</td>
+</tr>
+<tr>
+<td>links[results]</td>
 <td>string</td>
 <td>The endpoint where to submit answers, and solicit a result</td>
 </tr>
@@ -886,25 +991,30 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <p>A successful (200 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your age?"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors have a greater appetite for..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-25 yrs"</span><span class="p">,</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4ReX5gCGen2XA13GDQHd"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26-35 yrs"</span><span class="p">,</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"questions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"question"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your age?"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors have a..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-25 yrs"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"K/7M/F24W8aMRlymNF3U"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36-50 yrs"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"..."</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/questions"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Retrieve</em> details of a question and multiple choice answers as per the Six Park questionnaire/risk assessment.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
@@ -939,168 +1049,225 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </tr>
 </thead><tbody>
 <tr>
-<td>question</td>
+<td>data</td>
 <td>object</td>
 <td>The question object</td>
 </tr>
 <tr>
-<td>question[id]</td>
+<td>data[id]</td>
 <td>string</td>
 <td>Unique identifier for the question object</td>
 </tr>
 <tr>
-<td>question[text]</td>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>question</code></td>
+</tr>
+<tr>
+<td>data[attributes[text]]</td>
 <td>string</td>
 <td>The question text</td>
 </tr>
 <tr>
-<td>question[description]</td>
+<td>data[attributes[description]]</td>
 <td>string</td>
 <td>Context as to why this question is asked</td>
 </tr>
 <tr>
-<td>question[answers]</td>
+<td>data[attributes[answers]]</td>
 <td>collection</td>
 <td>Multiple choice answers associated with the question</td>
 </tr>
 <tr>
-<td>question[answers[id]]</td>
+<td>data[attributes[answers[id]]]</td>
 <td>string</td>
 <td>Unique identifier for the answer object</td>
 </tr>
 <tr>
-<td>question[answers[text]]</td>
+<td>data[attributes[answers[text]]]</td>
 <td>string</td>
 <td>The answer text</td>
 </tr>
 <tr>
-<td>links</td>
+<td>data[links]</td>
 <td>object</td>
 <td>Links to related endpoints</td>
 </tr>
 <tr>
-<td>links[questions]</td>
+<td>data[links[self]]</td>
+<td>string</td>
+<td>Link to question</td>
+</tr>
+<tr>
+<td>data[links[related]]</td>
 <td>string</td>
 <td>Link to all questions</td>
 </tr>
 </tbody></table>
-<h1 id='result'>Result</h1><h2 id='get-gt-get-questionnaire-result'>GET &gt; Get questionnaire result</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/result"</span>
+<h1 id='result'>Result</h1><h2 id='get-gt-get-questionnaire-result'>GET &gt; Get questionnaire result</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/questionnaire/results/:id"</span>
   <span class="nt">--header</span> <span class="s2">"Accept: application/json"</span>
   <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
 </code></pre></div>
 <blockquote>
-<p>A successful (200 HTTP status code) example JSON response body:</p>
+<p>To generate the ID:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nb">echo</span> <span class="s1">'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL'</span> | <span class="nb">base64</span>
+
+<span class="o">&gt;</span> QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK
+</code></pre></div>
+<blockquote>
+<p>An unsuccessful (400 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Balanced"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"performance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"window"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3 years"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"annualised_return_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.49</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad_request"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bad Request."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"results"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Balanced"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"performance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"window"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3 years"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"annualised_return_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.49</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"negative_years"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"return_over_cpi_percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"descriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"composition"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This portfolio invests in a diversified portfolio of growth and income ..."</span><span class="p">,</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We rate this portfolio as </span><span class="se">\"</span><span class="s2">Medium Risk</span><span class="se">\"</span><span class="s2">. This means..."</span><span class="p">,</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"growth"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">50.00</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"defensive"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">50.00</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"allocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Intl Equities (Hedged)"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VGAD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"category_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"growth"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"issuer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vanguard"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"portfolio_percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.00</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"documents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"pds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/pdf"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://assets.sixpark.com.au/pds/vgad.pdf"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"fact_sheet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/pdf"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://assets.sixpark.com.au/factsheets/vgad.pdf"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-25 yrs"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"question"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your age?"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors have a greater appetite for..."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvBC6EFwAL"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$125,000 to $249,999"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"znEPYuedAjPva"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"question"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the total value of your liquid assets..."</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, the greater the liquid assets you have, the more capacity you have to take on risk..."</span><span class="p">,</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvBC6EFwAL"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"conflicts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It is unusual to seek high-risk investments when..."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EGJkOzOij5PUhMZsjUno"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mostly concerned with potential..."</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"question"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Which statement best describes your primary concern..."</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This question helps assess your desire for risk..."</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions/EGJkOzOij5PUhMZsjUno"</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QrVhgp9VAw2LOMC7kMPh"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I want to play it safe and protect..."</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"question"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Which statement BEST describes your current..."</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This question helps assess your desire for risk..."</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions/EGJkOzOij5PUhMZsjUno"</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/questions"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="p">],</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"descriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"composition"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This portfolio invests in a diversified portfolio of growth and income ..."</span><span class="p">,</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rating"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We rate this portfolio as </span><span class="se">\"</span><span class="s2">Medium Risk</span><span class="se">\"</span><span class="s2">. This means..."</span><span class="p">,</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"growth"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">50.00</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"defensive"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">50.00</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"allocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Intl Equities (Hedged)"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VGAD"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"category_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"growth"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"issuer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vanguard"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"portfolio_percentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"documents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"pds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/pdf"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://assets.sixpark.com.au/pds/vgad.pdf"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"fact_sheet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/pdf"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://assets.sixpark.com.au/factsheets/vgad.pdf"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"..."</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG6DpLkUwLCCNyZRhHEi"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18-25 yrs"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your age?"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, younger investors have a greater appetite for..."</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvBC6EFwAL"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$125,000 to $249,999"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"znEPYuedAjPva"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the total value of your liquid assets..."</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Generally, the greater the liquid assets you have, the more capacity you have to take on risk..."</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"..."</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"conflicts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It is unusual to seek high-risk investments when..."</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EGJkOzOij5PUhMZsjUno"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mostly concerned with potential..."</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Which statement best describes your primary concern..."</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This question helps assess your desire for risk..."</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QrVhgp9VAw2LOMC7kMPh"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I want to play it safe and protect..."</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tnEKYuedAjPvB"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Which statement BEST describes your current..."</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This question helps assess your desire for risk..."</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="s2">"..."</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"..."</span><span class="w">
-  </span><span class="p">],</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"sign_up"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"sign_up"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sign-up"</span><span class="w">
   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><em>Retrieve</em> the Six Park questionnaire/risk assessment result.</p>
 
@@ -1108,25 +1275,11 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 
 <p>As part of the response, a collection of <code>conflicts</code> may be returned. Conflicts <em>must</em> be shown as part of the customer journey and acknowledged or the answer(s) that raised the conflict, changed (until no further conflicts exist).</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/result</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Required</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>answers</td>
-<td>yes</td>
-<td>collection</td>
-<td><code>no default</code></td>
-<td>A collection of Six Park answer <strong>ids</strong> as returned from the <code>questions</code> endpoint</td>
-</tr>
-</tbody></table>
+<p><code>GET https://app.sixpark.com.au/api/v1/questionnaire/results/:id</code></p>
+<h3 id='id-parameter'>ID Parameter</h3>
+<p>This endpoint requires your application to generate the <code>:id</code>. It is a comma separated Base64 safe encoded string of answer IDs.</p>
+<h3 id='validation'>Validation</h3>
+<p>All questions must be answered with no duplicates otherwise a 400 Bad request will be returned.</p>
 <h3 id='summary'>Summary</h3>
 <table><thead>
 <tr>
@@ -1155,209 +1308,264 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </tr>
 </thead><tbody>
 <tr>
-<td>name</td>
+<td>data</td>
+<td>object</td>
+<td>The result object</td>
+</tr>
+<tr>
+<td>data[id]</td>
+<td>string</td>
+<td>Unique identifier for the result object</td>
+</tr>
+<tr>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>results</code></td>
+</tr>
+<tr>
+<td>data[attributes[name]]</td>
 <td>string</td>
 <td>The name of Portfolio - one of [ &#39;Conservative&#39;, &#39;Conservative Balanced&#39;, &#39;Balanced&#39;, &#39;Balanced Growth&#39;, &#39;Aggressive Growth&#39; ]</td>
 </tr>
 <tr>
-<td>performance</td>
+<td>data[attributes[performance]]</td>
 <td>object</td>
 <td>The performance object</td>
 </tr>
 <tr>
-<td>performance[window]</td>
+<td>data[attributes[performance[window]]]</td>
 <td>string</td>
 <td>For how many years performance is being reported - one of [ &#39;1 year&#39;, &#39;3 years&#39;, &#39;5 years&#39; ]</td>
 </tr>
 <tr>
-<td>performance[annualised_return_percent]</td>
+<td>data[attributes[performance[annualised_return_percent]]]</td>
 <td>float</td>
 <td>Percentage return - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>descriptions</td>
+<td>data[attributes[performance[negative_years]]]</td>
+<td>Integer</td>
+<td>Average amount of years that will be negative out of 20 years</td>
+</tr>
+<tr>
+<td>data[attributes[performance[return_over_cpi_percentage]]]</td>
+<td>float</td>
+<td>Percentage return over cpi - precision to 2 decimal places</td>
+</tr>
+<tr>
+<td>data[attributes[descriptions]]</td>
 <td>collection</td>
 <td>Portfolio descriptions</td>
 </tr>
 <tr>
-<td>descriptions[type]</td>
+<td>data[attributes[descriptions[type]]]</td>
 <td>string</td>
 <td>The type of the description - one of [ &#39;composition&#39;, &#39;rating&#39; ]</td>
 </tr>
 <tr>
-<td>descriptions[description]</td>
+<td>data[attributes[descriptions[description]]]</td>
 <td>string</td>
 <td>A description about the related type</td>
 </tr>
 <tr>
-<td>categories</td>
+<td>data[attributes[categories]]</td>
 <td>collection</td>
 <td>Portfolio categories</td>
 </tr>
 <tr>
-<td>categories[type]</td>
+<td>data[attributes[categories[type]]]</td>
 <td>string</td>
 <td>The category - one of [ &#39;growth&#39;, &#39;defensive&#39; ]</td>
 </tr>
 <tr>
-<td>categories[percentage]</td>
+<td>data[attributes[categories[percentage]]]</td>
 <td>float</td>
 <td>How much of the Portfolio the category is assigned - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>allocations</td>
+<td>data[attributes[allocations]]</td>
 <td>collection</td>
 <td>A collection of equities the Portfolio is comprised of</td>
 </tr>
 <tr>
-<td>allocations[name]</td>
+<td>data[attributes[allocations[name]]]</td>
 <td>string</td>
 <td>Name of the equity</td>
 </tr>
 <tr>
-<td>allocations[ticker]</td>
+<td>data[attributes[allocations[ticker]]]</td>
 <td>string</td>
 <td>The ASX symbol</td>
 </tr>
 <tr>
-<td>allocations[category_type]</td>
+<td>data[attributes[allocations[category_type]]]</td>
 <td>string</td>
 <td>The category - one of [ &#39;growth&#39;, &#39;defensive&#39; ]</td>
 </tr>
 <tr>
-<td>allocations[provider_name]</td>
+<td>data[attributes[allocations[issuer_name]]]</td>
 <td>string</td>
 <td>The issuer of the ETF</td>
 </tr>
 <tr>
-<td>allocations[portfolio_percentage]</td>
+<td>data[attributes[allocations[portfolio_percentage]]]</td>
 <td>float</td>
 <td>How much of the Portfolio this equity is assigned - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>documents</td>
+<td>data[attributes[allocations[documents]]]</td>
 <td>object</td>
 <td>A collection of financial documents</td>
 </tr>
 <tr>
-<td>documents[pds]</td>
+<td>data[attributes[allocations[documents[pds]]]]</td>
 <td>string</td>
 <td>The product disclosure statement</td>
 </tr>
 <tr>
-<td>documents[pds[content_type]]</td>
+<td>data[attributes[allocations[documents[pds[content_type]]]]]</td>
 <td>string</td>
 <td>The content type of the document</td>
 </tr>
 <tr>
-<td>documents[pds[url]]</td>
+<td>data[attributes[allocations[documents[pds[url]]]]]</td>
 <td>string</td>
 <td>The link to the document</td>
 </tr>
 <tr>
-<td>documents[fact_sheet]</td>
+<td>data[attributes[allocations[documents[fact_sheet]]]]</td>
 <td>string</td>
 <td>The fact sheet document</td>
 </tr>
 <tr>
-<td>documents[fact_sheet[content_type]]</td>
+<td>data[attributes[allocations[documents[fact_sheet[content_type]]]]]</td>
 <td>string</td>
 <td>The content type of the document</td>
 </tr>
 <tr>
-<td>documents[fact_sheet[url]]</td>
+<td>data[attributes[allocations[documents[fact_sheet[url]]]]]</td>
 <td>string</td>
 <td>The link to the document</td>
 </tr>
 <tr>
-<td>answers</td>
+<td>data[attributes[answers]]</td>
 <td>collection</td>
 <td>The set of answers reflected back as part of the originating request</td>
 </tr>
 <tr>
-<td>answers[id]</td>
+<td>data[attributes[answers[id]]]</td>
 <td>string</td>
 <td>Unique identifier for the answer object</td>
 </tr>
 <tr>
-<td>answers[text]</td>
+<td>data[attributes[answers[text]]]</td>
 <td>string</td>
 <td>The answer text</td>
 </tr>
 <tr>
-<td>answers[question[id]]</td>
+<td>data[attributes[answers[question[data[id]]]]]</td>
 <td>string</td>
 <td>Unique identifier for the question object</td>
 </tr>
 <tr>
-<td>answers[question[text]]</td>
+<td>data[attributes[answers[question[data[type]]]]]</td>
+<td>string</td>
+<td>Type string for the question object</td>
+</tr>
+<tr>
+<td>data[attributes[answers[question[attributes[text]]]]]</td>
 <td>string</td>
 <td>The question text</td>
 </tr>
 <tr>
-<td>answers[question[description]]</td>
+<td>data[attributes[answers[question[attributes[description]]]]]</td>
 <td>string</td>
 <td>Context as to why this question is asked</td>
 </tr>
 <tr>
-<td>answers[question[links]]</td>
+<td>data[attributes[answers[question[links]]]]</td>
 <td>object</td>
-<td>Links to related endpoints</td>
+<td>Links related to question</td>
 </tr>
 <tr>
-<td>conflicts</td>
+<td>data[attributes[answers[question[links][self]]]]</td>
+<td>object</td>
+<td>Link to question</td>
+</tr>
+<tr>
+<td>data[attributes[answers[question[links][related]]]]</td>
+<td>object</td>
+<td>Link to all questions</td>
+</tr>
+<tr>
+<td>data[attributes[conflicts]]</td>
 <td>collection</td>
 <td>The set of conflicts that may have arisen from conflicting answers</td>
 </tr>
 <tr>
-<td>conflicts[text]</td>
+<td>data[attributes[conflicts[text]]]</td>
 <td>string</td>
 <td>The conflict text</td>
 </tr>
 <tr>
-<td>conflicts[answers]</td>
+<td>data[attributes[conflicts[answers]]]</td>
 <td>collection</td>
 <td>A collection of the conflicted answers</td>
 </tr>
 <tr>
-<td>conflicts[answers[id]]</td>
+<td>data[attributes[conflicts[answers[id]]]]</td>
 <td>string</td>
 <td>Unique identifier for the answer object</td>
 </tr>
 <tr>
-<td>conflicts[answers[text]]</td>
+<td>data[attributes[conflicts[answers[text]]]]</td>
 <td>string</td>
 <td>The answer text</td>
 </tr>
 <tr>
-<td>conflicts[answers[question[id]]]</td>
+<td>data[attributes[conflicts[answers[question[id]]]]]</td>
 <td>string</td>
 <td>Unique identifier for the question object</td>
 </tr>
 <tr>
-<td>conflicts[answers[question[text]]]</td>
+<td>data[attributes[conflicts[answers[question[text]]]]]</td>
 <td>string</td>
 <td>The question text</td>
 </tr>
 <tr>
-<td>conflicts[answers[question[description]]]</td>
+<td>data[attributes[conflicts[answers[question[description]]]]]</td>
 <td>string</td>
 <td>Context as to why this question is asked</td>
 </tr>
 <tr>
-<td>conflicts[answers[question[links]]]</td>
+<td>data[attributes[conflicts[answers[question[links]]]]]</td>
+<td>object</td>
+<td>Links related to question</td>
+</tr>
+<tr>
+<td>data[attributes[conflicts[answers[question[links][self]]]]]</td>
+<td>object</td>
+<td>Link to question</td>
+</tr>
+<tr>
+<td>data[attributes[conflicts[asnwers[question[links][related]]]]]</td>
+<td>object</td>
+<td>Link to all questions</td>
+</tr>
+<tr>
+<td>data[links]</td>
 <td>object</td>
 <td>Links to related endpoints</td>
 </tr>
 <tr>
-<td>links</td>
-<td>object</td>
-<td>Links to related endpoints</td>
-</tr>
-<tr>
-<td>links[sign_up]</td>
+<td>data[links[sign_up]]</td>
 <td>string</td>
 <td>Where to submit the result to create a Six Park user and associations</td>
+</tr>
+<tr>
+<td>data[links[self]]</td>
+<td>string</td>
+<td>link to result</td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='post-gt-create-a-new-user'>POST &gt; Create a new user</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/users"</span>
@@ -1377,7 +1585,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 
 </code></pre></div>
 <blockquote>
-<p>A successful (200 HTTP status code) example JSON response body:</p>
+<p>A successful (201 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33047f9a-8be9-41e0-82b5-d6f265f69bea"</span><span class="p">,</span><span class="w">
@@ -1401,7 +1609,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
     </span><span class="nl">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">194220</span><span class="p">,</span><span class="w">
     </span><span class="nl">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8-2kNsh0CoPn8-_hFVQa5r7W14KqNgdwtwi2j-DAc1I"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read write"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users.read"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592809139</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1523,7 +1731,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='200-http-status-code-properties'>200 HTTP status code properties</h3>
+<h3 id='201-http-status-code-properties'>201 HTTP status code properties</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -1614,7 +1822,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <tr>
 <td>authentication[scope]</td>
 <td>string</td>
-<td>The scopes, either <code>[ read, write ]</code>, the access token is/are valid for</td>
+<td>One or more scopes listed under authentication</td>
 </tr>
 <tr>
 <td>authentication[created_at]</td>
@@ -1669,7 +1877,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='200-http-status-code-properties-2'>200 HTTP status code properties</h3>
+<h3 id='200-http-status-code-properties'>200 HTTP status code properties</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -1678,37 +1886,42 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
+<td>data</td>
+<td>object</td>
+<td>The user object</td>
+</tr>
+<tr>
+<td>data[id]</td>
 <td>string</td>
 <td>Unique identifier for the user object</td>
 </tr>
 <tr>
-<td>type</td>
+<td>data[type]</td>
 <td>string</td>
-<td>The object type - always <code>user</code></td>
+<td>The resource type - <code>user</code></td>
 </tr>
 <tr>
-<td>attributes[email]</td>
+<td>data[attributes[email]]</td>
 <td>string</td>
 <td>The user&#39;s email</td>
 </tr>
 <tr>
-<td>attributes[first_name]</td>
+<td>data[attributes[first_name]]</td>
 <td>string</td>
 <td>The user&#39;s first name</td>
 </tr>
 <tr>
-<td>attributes[last_name]</td>
+<td>data[attributes[last_name]]</td>
 <td>string</td>
 <td>The user&#39;s last name</td>
 </tr>
 <tr>
-<td>attributes[phone_number]</td>
+<td>data[attributes[phone_number]]</td>
 <td>string</td>
 <td>The user&#39;s phone number</td>
 </tr>
 <tr>
-<td>links</td>
+<td>data[links]</td>
 <td>object</td>
 <td>Links to related endpoints</td>
 </tr>
@@ -1758,7 +1971,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='200-http-status-code-properties'>200 HTTP status code properties</h3>
+<h3 id='201-http-status-code-properties'>201 HTTP status code properties</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -1802,7 +2015,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 
 </code></pre></div>
 <blockquote>
-<p>A successful (200 HTTP status code) example JSON response body:</p>
+<p>A successful (201 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
@@ -1875,7 +2088,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='200-http-status-code-properties-2'>200 HTTP status code properties</h3>
+<h3 id='201-http-status-code-properties-2'>201 HTTP status code properties</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -1919,7 +2132,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 
 </code></pre></div>
 <blockquote>
-<p>A successful (200 HTTP status code) example JSON response body:</p>
+<p>A successful (201 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbcb043-4e20-46d6-9d85-71018debad6c"</span><span class="p">,</span><span class="w">
@@ -1985,7 +2198,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='200-http-status-code-properties-3'>200 HTTP status code properties</h3>
+<h3 id='201-http-status-code-properties-3'>201 HTTP status code properties</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2066,7 +2279,7 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='200-http-status-code-properties-4'>200 HTTP status code properties</h3>
+<h3 id='200-http-status-code-properties'>200 HTTP status code properties</h3>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2113,43 +2326,49 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 <p>A successful (200 HTTP status code) example JSON response body:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">13724.00</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"capital_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">1046.74</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"capital_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.48</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"payout_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.65</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"payout_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.13</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"currency_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-18.93</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"currency_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.14</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"total_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">1045.46</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"total_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.48</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-01"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-01"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"holdings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Intl Equities (Hedged)"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VGAD"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">500.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"capital_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-2.0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"capital_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.40</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payout_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payout_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"currency_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"currency_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"total_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-2.00</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"total_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.40</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fb572fd3-607c-40a5-814d-dc5835d49cdb"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"performance"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">13724.00</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"capital_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">1046.74</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"capital_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.48</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payout_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.65</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payout_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.13</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-18.93</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.14</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">1045.46</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.48</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-01"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-01"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"holdings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Intl Equities (Hedged)"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VGAD"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">500.00</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"capital_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-2.0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"capital_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.40</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"payout_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"payout_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"currency_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"currency_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"total_gain"</span><span class="p">:</span><span class="w"> </span><span class="mf">-2.00</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"total_gain_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.40</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"..."</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"cash_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Macquarie..."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">1289.30</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"..."</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"cash_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Macquarie..."</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">1289.30</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2209,139 +2428,491 @@ You must replace <code>refresh_token</code> with the refresh token returned via 
 </tr>
 </thead><tbody>
 <tr>
-<td>value</td>
+<td>data</td>
+<td>object</td>
+<td>The question object</td>
+</tr>
+<tr>
+<td>data[id]</td>
+<td>string</td>
+<td>Unique identifier for the portfolio object</td>
+</tr>
+<tr>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>portfolio</code></td>
+</tr>
+<tr>
+<td>data[attributes[value]]</td>
 <td>float</td>
 <td>The total value of the portfolio - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>capital_gain</td>
+<td>data[attributes[capital_gain]]</td>
 <td>float</td>
 <td>Capital gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>capital_gain_percent</td>
+<td>data[attributes[capital_gain_percent]]</td>
 <td>float</td>
 <td>Capital gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>payout_gain</td>
+<td>data[attributes[payout_gain]]</td>
 <td>float</td>
 <td>Payout gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>payout_gain_percent</td>
+<td>data[attributes[payout_gain_percent]]</td>
 <td>float</td>
 <td>Payout gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>currency_gain</td>
+<td>data[attributes[currency_gain]]</td>
 <td>float</td>
 <td>Currency gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>currency_gain_percent</td>
+<td>data[attributes[currency_gain_percent]]</td>
 <td>float</td>
 <td>Currency gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>total_gain</td>
+<td>data[attributes[total_gain]]</td>
 <td>float</td>
 <td>Total gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>total_gain_percent</td>
+<td>data[attributes[total_gain_percent]]</td>
 <td>float</td>
 <td>Total gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>start_date</td>
+<td>data[attributes[start_date]]</td>
 <td>date</td>
 <td>Start date (format <code>YYYY-MM-DD</code>)</td>
 </tr>
 <tr>
-<td>end_date</td>
+<td>data[attributes[end_date]]</td>
 <td>date</td>
 <td>End date (format <code>YYYY-MM-DD</code>)</td>
 </tr>
 <tr>
-<td>holdings</td>
+<td>data[attributes[holdings]]</td>
 <td>collection</td>
 <td>A collection of equities held</td>
 </tr>
 <tr>
-<td>holdings[name]</td>
+<td>data[attributes[holdings[name]]]</td>
 <td>string</td>
 <td>Name of the equity</td>
 </tr>
 <tr>
-<td>holdings[ticker]</td>
+<td>data[attributes[holdings[ticker]]]</td>
 <td>string</td>
 <td>The ASX symbol</td>
 </tr>
 <tr>
-<td>holdings[value]</td>
+<td>data[attributes[holdings[value]]]</td>
 <td>float</td>
 <td>The value of the holding - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[quantity]</td>
+<td>data[attributes[holdings[quantity]]]</td>
 <td>string</td>
 <td>The number of units held</td>
 </tr>
 <tr>
-<td>holdings[capital_gain]</td>
+<td>data[attributes[holdings[capital_gain]]]</td>
 <td>float</td>
 <td>Capital gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[capital_gain_percent]</td>
+<td>data[attributes[holdings[capital_gain_percent]]]</td>
 <td>float</td>
 <td>Capital gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[payout_gain]</td>
+<td>data[attributes[holdings[payout_gain]]]</td>
 <td>float</td>
 <td>Payout gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[payout_gain_percent]</td>
+<td>data[attributes[holdings[payout_gain_percent]]]</td>
 <td>float</td>
 <td>Payout gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[currency_gain]</td>
+<td>data[attributes[holdings[currency_gain]]]</td>
 <td>float</td>
 <td>Currency gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[currency_gain_percent]</td>
+<td>data[attributes[holdings[currency_gain_percent]]]</td>
 <td>float</td>
 <td>Currency gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[total_gain]</td>
+<td>data[attributes[holdings[total_gain]]]</td>
 <td>float</td>
 <td>Total gain - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>holdings[total_gain_percent]</td>
+<td>data[attributes[holdings[total_gain_percent]]]</td>
 <td>float</td>
 <td>Total gain percent - precision to 2 decimal places</td>
 </tr>
 <tr>
-<td>cash_accounts</td>
+<td>data[attributes[cash_accounts]]</td>
 <td>collection</td>
 <td>A collection of cash account held</td>
 </tr>
 <tr>
-<td>cash_accounts[name]</td>
+<td>data[attributes[cash_accounts[name]]]</td>
 <td>string</td>
 <td>Name of the cash account</td>
 </tr>
 <tr>
-<td>cash_accounts[value]</td>
+<td>data[attributes[cash_accounts[value]]]</td>
 <td>float</td>
 <td>The value of the cash account - precision to 2 decimal places</td>
+</tr>
+</tbody></table>
+<h1 id='webhooks'>Webhooks</h1>
+<p><a href="https://en.wikipedia.org/wiki/Webhook">Webhooks</a> are used as a means of notifying your application that a particular event has occurred.</p>
+
+<p>On successfully creating a Webhook, as part of the response, a <code>signature_token</code> property is returned. It is to be persisted and used in the verification process.</p>
+
+<p>Six Park will use this property to compute a SHA256 HMAC of each webhook request body. The computed HMAC is passed as the value of the <code>X-SixPark-Signature</code> header.</p>
+
+<p>In turn, this header is used by your application to validate the authenticity and completeness of the request, ie: that it hasn&#39;t been tampered with and that it has originated from Six Park.</p>
+
+<p>The verification process matches the creation process:</p>
+
+<ul>
+<li>Your application will compute the SHA256 HMAC of the un-parsed, raw request body using the <code>signature_token</code> property as was returned as part of create webhook response.</li>
+<li>Your application will then compare the computed HMAC and the HMAC from the <code>X-SixPark-Signature</code> header. If the values match, the request is complete and valid.</li>
+</ul>
+
+<p>Webhook urls must respond with a <code>200</code> HTTP status code on a successful request. Unsuccessful responses will yield up to 5 retries using an exponential backoff strategy.</p>
+<h2 id='post-gt-create-a-new-webhook'>POST &gt; Create a new webhook</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/webhooks"</span>
+  <span class="nt">--request</span> POST
+  <span class="nt">--header</span> <span class="s2">"Accept: application/json"</span>
+  <span class="nt">--header</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"url=https://..."</span>
+  <span class="nt">--data-urlencode</span> <span class="s2">"description=This is my webhook..."</span>
+
+</code></pre></div>
+<blockquote>
+<p>A successful (201 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"330acf46d-ce50-4788-a219-1de5ae9ac484"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my webhook..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"signature_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b7bcf4a088215ed9396b07c9e8b931a5697bc0c4"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/webhooks/30acf46d-ce50-4788-a219-1de5ae9ac484"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A successful request to this endpoint will create a new Webhook.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://app.sixpark.com.au/api/v1/webhooks</code></p>
+<h3 id='form-parameters'>FORM Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>url</td>
+<td>yes</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>The HTTP url where the request will be made</td>
+</tr>
+<tr>
+<td>description</td>
+<td>yes</td>
+<td>string</td>
+<td><code>no default</code></td>
+<td>The description of the webhook</td>
+</tr>
+</tbody></table>
+<h3 id='summary'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='201-http-status-code-properties'>201 HTTP status code properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data[id]</td>
+<td>string</td>
+<td>Unique identifier for the user object</td>
+</tr>
+<tr>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>webhook</code></td>
+</tr>
+<tr>
+<td>data[attributes[url]]</td>
+<td>string</td>
+<td>The HTTP url where the request will be made</td>
+</tr>
+<tr>
+<td>data[attributes[description]]</td>
+<td>string</td>
+<td>The description of the webhook</td>
+</tr>
+<tr>
+<td>data[attributes[signature_token]]</td>
+<td>string</td>
+<td>The signature token used to create the SHA256 HMAC</td>
+</tr>
+</tbody></table>
+<h2 id='get-gt-retrieve-a-webhook'>GET &gt; Retrieve a webhook</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/webhook/:id"</span>
+  <span class="nt">--header</span> <span class="s2">"Accept: application/json"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>A successful (200 HTTP status code) example JSON response body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"330acf46d-ce50-4788-a219-1de5ae9ac484"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my webhook..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"signature_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b7bcf4a088215ed9396b07c9e8b931a5697bc0c4"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/webhooks/30acf46d-ce50-4788-a219-1de5ae9ac484"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><em>Retrieve</em> webhook with the given <code>:id</code>.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://app.sixpark.com.au/api/v1/webhooks/:id</code></p>
+<h3 id='parameters'>Parameters</h3>
+<p>Not applicable.</p>
+<h3 id='summary-2'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='200-http-status-code-properties'>200 HTTP status code properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data[id]</td>
+<td>string</td>
+<td>Unique identifier for the user object</td>
+</tr>
+<tr>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>webhook</code></td>
+</tr>
+<tr>
+<td>data[attributes[url]]</td>
+<td>string</td>
+<td>The HTTP url where the request will be made</td>
+</tr>
+<tr>
+<td>data[attributes[description]]</td>
+<td>string</td>
+<td>The description of the webhook</td>
+</tr>
+<tr>
+<td>data[attributes[signature_token]]</td>
+<td>string</td>
+<td>The signature token used to create the SHA256 HMAC</td>
+</tr>
+</tbody></table>
+<h2 id='delete-gt-remove-a-webhook-with-the-given-id'>DELETE &gt; Remove a webhook with the given <code>:id</code>.</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://app.sixpark.com.au/api/v1/webhook/:id"</span>
+  <span class="nt">--request</span> DELETE
+  <span class="nt">--header</span> <span class="s2">"Accept: application/json"</span>
+  <span class="nt">--header</span> <span class="s2">"Authorization: Bearer &lt;access_token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>A successful (204 HTTP status code) response will contain no response body.</p>
+</blockquote>
+
+<p><em>Delete</em> a webhook.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>DELETE https://app.sixpark.com.au/api/v1/webhooks/:id</code></p>
+<h3 id='parameters-2'>Parameters</h3>
+<p>Not applicable.</p>
+<h3 id='summary-3'>Summary</h3>
+<table><thead>
+<tr>
+<th>Configuration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>authenticated</td>
+<td>resource owner</td>
+<td>Access is granted via the resource owner&#39;s access token</td>
+</tr>
+<tr>
+<td>paginated</td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='204-http-status-code-properties'>204 HTTP status code properties</h3>
+<p>Not applicable.</p>
+<h2 id='post-gt-url'>POST &gt; <code>{url}</code></h2>
+<blockquote>
+<p>A sample JSON encoded response body.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecb20ef1-a543-4ae5-9446-0661a882a616"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook-event"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"even_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACCOUNT_ONBOARDED"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"webhook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75fe2702-114a-401c-8a5f-61d9fa15e0eb"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.sixpark.com.au/api/v1/webhooks/75fe2702-114a-401c-8a5f-61d9fa15e0eb"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f11b778a-3c83-43b5-a481-6b46e4d8aabb"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"related"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>POST</code> requests containing JSON encoded bodies are made to configured webhook URLs.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST {url}</code></p>
+<h3 id='event-types'>Event Types</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ACCOUNT_OPENED</td>
+<td>Account has been opened</td>
+</tr>
+</tbody></table>
+<h3 id='headers'>Headers</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>X-SixPark-Signature</td>
+<td>SHA256 HMAC of raw request body</td>
+<td>Used to verify the completeness and authenticity of the request</td>
+</tr>
+</tbody></table>
+<h3 id='body-properties'>Body Properties</h3>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data[id]</td>
+<td>string</td>
+<td>Unique identifier for the user object</td>
+</tr>
+<tr>
+<td>data[type]</td>
+<td>string</td>
+<td>The resource type - <code>webhook</code></td>
+</tr>
+<tr>
+<td>data[attributes[url]]</td>
+<td>string</td>
+<td>The HTTP url where the request will be made</td>
+</tr>
+<tr>
+<td>data[attributes[description]]</td>
+<td>string</td>
+<td>The description of the webhook</td>
+</tr>
+<tr>
+<td>data[attributes[signature_token]]</td>
+<td>string</td>
+<td>The signature token used to create the SHA256 HMAC</td>
 </tr>
 </tbody></table>
 
