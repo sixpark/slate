@@ -20,7 +20,7 @@ curl "https://app.sixpark.com.au/api/v1/users"
 
 ```
 
-> A successful (200 HTTP status code) example JSON response body:
+> A successful (201 HTTP status code) example JSON response body:
 
 ```json
 {
@@ -99,7 +99,7 @@ Configuration | Value | Description
 authenticated | client credentials | Access is granted via a client credentials access token
 paginated | no | 
 
-### 200 HTTP status code properties
+### 201 HTTP status code properties
 
 Property | Type | Description
 --------- | ----------- | -----------
@@ -172,10 +172,11 @@ paginated | no |
 
 Property | Type | Description
 --------- | ----------- | -----------
-id | string | Unique identifier for the user object
-type | string | The object type - always `user`
-attributes[email] | string | The user's email
-attributes[first_name] | string | The user's first name
-attributes[last_name] | string | The user's last name
-attributes[phone_number] | string | The user's phone number
-links | object | Links to related endpoints
+data | object | The user object
+data[id] | string | Unique identifier for the user object
+data[type] | string | The resource type - `user`
+data[attributes[email]] | string | The user's email
+data[attributes[first_name]] | string | The user's first name
+data[attributes[last_name]] | string | The user's last name
+data[attributes[phone_number]] | string | The user's phone number
+data[links] | object | Links to related endpoints

@@ -10,6 +10,7 @@ includes:
   - users
   - accounts
   - portfolio
+  - webhooks
 ---
 
 # Basics
@@ -232,6 +233,7 @@ Error Code | Description
 403 | Forbidden - The access token does not have the permissions to perform the request.
 404 | Not Found - The specified resource could not be found.
 406 | Not Acceptable - The requested format was not JSON.
+415 | Unsupported Media Type - The requested media type is in an unsupported format, ie: not JSON.
 422 | Unprocessable Entity - The request was well-formed but was unable to be completed.
 429 | Too Many Requests - The rate at which the API is being accessed is too fast.
 500 | Internal Server Error - We had a problem with our application/API. Try again later.

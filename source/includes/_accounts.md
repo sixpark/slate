@@ -43,7 +43,7 @@ Configuration | Value | Description
 authenticated | resource owner | Access is granted via the resource owner's access token
 paginated | no | 
 
-### 200 HTTP status code properties
+### 201 HTTP status code properties
 
 Property | Type | Description
 --------- | ----------- | -----------
@@ -66,7 +66,7 @@ curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts"
 
 ```
 
-> A successful (200 HTTP status code) example JSON response body:
+> A successful (201 HTTP status code) example JSON response body:
 
 ```json
 {
@@ -113,7 +113,7 @@ Configuration | Value | Description
 authenticated | resource owner | Access is granted via the resource owner's access token
 paginated | no | 
 
-### 200 HTTP status code properties
+### 201 HTTP status code properties
 
 Property | Type | Description
 --------- | ----------- | -----------
@@ -136,7 +136,7 @@ curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/resu
 
 ```
 
-> A successful (200 HTTP status code) example JSON response body:
+> A successful (201 HTTP status code) example JSON response body:
 
 ```json
 {
@@ -178,7 +178,7 @@ Configuration | Value | Description
 authenticated | resource owner | Access is granted via the resource owner's access token
 paginated | no | 
 
-### 200 HTTP status code properties
+### 201 HTTP status code properties
 
 Property | Type | Description
 --------- | ----------- | -----------

@@ -69,7 +69,7 @@ Property | Type | Description
 --------- | ----------- | -----------
 data | collection | A collection of questions
 data[id] | string | Unique identifier for the question object
-data[type] | string | Type string for the question object
+data[type] | string | The resource type - `question`
 data[attributes[text]] | string | The question text
 data[attributes[description]] | string | Context as to why this question is asked
 data[attributes[answers]] | collection | Multiple choice answers associated with the question
@@ -141,7 +141,7 @@ Property | Type | Description
 --------- | ----------- | -----------
 data | object | The question object
 data[id] | string | Unique identifier for the question object
-data[type] | string | Type string for the question object
+data[type] | string | The resource type - `question`
 data[attributes[text]] | string | The question text
 data[attributes[description]] | string | Context as to why this question is asked
 data[attributes[answers]] | collection | Multiple choice answers associated with the question

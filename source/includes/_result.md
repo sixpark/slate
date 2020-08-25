@@ -2,19 +2,22 @@
 
 ## GET > Get questionnaire result
 
-```shell
-echo 'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL' | base64
-
-QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK
-```
 
 ```shell
-curl "https://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK"
+curl "https://app.sixpark.com.au/api/v1/questionnaire/results/:id"
   --header "Accept: application/json"
   --header "Authorization: Bearer <access_token>"
 ```
 
-> Incomplete questionnaire error
+> To generate the ID:
+
+```shell
+echo 'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL' | base64
+
+> QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK
+```
+
+> An unsuccessful (400 HTTP status code) example JSON response body:
 
 ```json
 {
@@ -179,9 +182,9 @@ As part of the response, a collection of `conflicts` may be returned. Conflicts 
 
 `GET https://app.sixpark.com.au/api/v1/questionnaire/results/:id`
 
-### ID generation
+### ID Parameter
 
-The ID to be sent to the results endpoint is a comma separated Base64 safe encoded string of answer Ids
+This endpoint requires your application to generate the `:id`. It is a comma separated Base64 safe encoded string of answer IDs.
 
 ### Validation
 
@@ -200,7 +203,7 @@ Property | Type | Description
 --------- | ----------- | -----------
 data | object | The result object
 data[id] | string | Unique identifier for the result object
-data[type] | string | Type string for the result object
+data[type] | string | The resource type - `results`
 data[attributes[name]] | string | The name of Portfolio - one of [ 'Conservative', 'Conservative Balanced', 'Balanced', 'Balanced Growth', 'Aggressive Growth' ]
 data[attributes[performance]] | object | The performance object
 data[attributes[performance[window]]] | string | For how many years performance is being reported - one of [ '1 year', '3 years', '5 years' ]
