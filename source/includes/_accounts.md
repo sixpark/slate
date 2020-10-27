@@ -62,7 +62,6 @@ curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts"
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Bearer <access_token>"
   --data-urlencode "answers=[X,Y]"
-  --data-urlencode "conflicts_accepted=true"
 
 ```
 
@@ -89,12 +88,6 @@ This endpoint is flexible in the parameters it accepts and caters for the follow
 * **Create a new account and assign a result**: the account has an associated result and onboarding can commence.
 
 
-### Validations
-
-Outside of general property validation:
-
-- If the parameter `result[conflicts_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `conflicts` property, the response will return a HTTP 400 - Bad Request status code.
-
 ### HTTP Request
 
 `POST https://app.sixpark.com.au/api/v1/users/:user_id/accounts`
@@ -104,7 +97,6 @@ Outside of general property validation:
 Parameter | Required | Type | Default | Description
 --------- | ----------- | ----------- | ----------- | -----------
 answers | no | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
-conflicts_accepted | no | boolean | false | If conflicts were returned via the `result` endpoint, whether they were accepted [ true, false ]
 
 ### Summary
 
@@ -132,8 +124,6 @@ curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/resu
   --header "Content-Type: application/x-www-form-urlencoded"
   --header "Authorization: Bearer <access_token>"
   --data-urlencode "answers=[X,Y]"
-  --data-urlencode "conflicts_accepted=true"
-
 ```
 
 > A successful (201 HTTP status code) example JSON response body:
@@ -153,13 +143,6 @@ curl "https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/resu
 
 A successful request to this endpoint will assign a new result to an existing account resource owned by the resource owner.
 
-### Validations
-
-Outside of general property validation:
-
-- If the parameter `result[conflicts_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `conflicts` property, the response will return a HTTP 400 - Bad Request status code.
-
-
 ### HTTP Request
 
 `POST https://app.sixpark.com.au/api/v1/users/:user_id/accounts/:account_id/results`
@@ -169,7 +152,6 @@ Outside of general property validation:
 Parameter | Required | Type | Default | Description
 --------- | ----------- | ----------- | ----------- | -----------
 answers | yes | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
-conflicts_accepted | no | boolean | false | If conflicts were returned via the `result` endpoint, whether they were accepted [ true, false ]
 
 ### Summary
 

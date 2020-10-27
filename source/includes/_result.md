@@ -29,167 +29,169 @@ echo 'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL' | base64
 > A successful (200 HTTP status code) example JSON response body:
 
 ```json
-"data": {
-  "id": "QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK",
-  "type": "results",
-  "attributes": {
-    "name": "Balanced",
-    "performance": {
-      "window": "3 years",
-      "annualised_return_percent": 5.49,
-      "negative_years": 4,
-      "return_over_cpi_percentage": 4.0
-    },
-    "descriptions": [
-      {
-        "type": "composition",
-        "description": "This portfolio invests in a diversified portfolio of growth and income ...",
+"data": [
+  {
+    "id": "QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK",
+    "type": "result",
+    "attributes": {
+      "name": "Balanced",
+      "performance": {
+        "window": "3 years",
+        "annualised_return_percent": 5.49,
+        "negative_years": 4,
+        "return_over_cpi_percentage": 4.0
       },
-      {
-        "type": "rating",
-        "description": "We rate this portfolio as \"Medium Risk\". This means...",
-      },
-      {
-        "type": "blurb",
-        "description": "We've considered the answers you've provided about your investment goals..",
-      }
-    ],
-    "classifications": [
-      {
-        "type": "growth",
-        "percentage": 50.00
-      },
-      {
-        "type": "defensive",
-        "percentage": 50.00
-      }
-    ],
-    "allocations": [
-      {
-        "name": "Intl Equities (Hedged)",
-        "ticker": "VGAD",
-        "classifications": [
-          {
-            "type": "growth",
-            "percentage": 50.0
-          },
-          {
-            "type": "defensive",
-            "percentage": 50.0
-          }
-        ],
-        "issuer_name": "Vanguard",
-        "portfolio_percentage": 10.00,
-        "documents": {
-          "pds": {
-            "content_type": "application/pdf",
-            "url": "https://assets.sixpark.com.au/pds/vgad.pdf"
-          },
-          "fact_sheet": {
-            "content_type": "application/pdf",
-            "url": "https://assets.sixpark.com.au/factsheets/vgad.pdf"
-          }
+      "descriptions": [
+        {
+          "type": "composition",
+          "description": "This portfolio invests in a diversified portfolio of growth and income ...",
+        },
+        {
+          "type": "rating",
+          "description": "We rate this portfolio as \"Medium Risk\". This means...",
+        },
+        {
+          "type": "blurb",
+          "description": "We've considered the answers you've provided about your investment goals..",
         }
-      },
-      "..."
-    ],
-    "answers": [
-      {
-        "id": "0db8f2a0-e382-4b5c-a5de-c467a461ef93",
-        "text": "18-25 yrs",
-        "question": {
-          "data": {
-            "id": "tnEKYuedAjPvB",
-            "type": "question",
-            "attributes": {
-              "text": "What is your age?",
-              "description": "Generally, younger investors have a greater appetite for..."
+      ],
+      "classifications": [
+        {
+          "type": "growth",
+          "percentage": 50.00
+        },
+        {
+          "type": "defensive",
+          "percentage": 50.00
+        }
+      ],
+      "allocations": [
+        {
+          "name": "Intl Equities (Hedged)",
+          "ticker": "VGAD",
+          "classifications": [
+            {
+              "type": "growth",
+              "percentage": 50.0
             },
-            "links": {
-              "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB",
-              "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
+            {
+              "type": "defensive",
+              "percentage": 50.0
+            }
+          ],
+          "issuer_name": "Vanguard",
+          "portfolio_percentage": 10.00,
+          "documents": {
+            "pds": {
+              "content_type": "application/pdf",
+              "url": "https://assets.sixpark.com.au/pds/vgad.pdf"
+            },
+            "fact_sheet": {
+              "content_type": "application/pdf",
+              "url": "https://assets.sixpark.com.au/factsheets/vgad.pdf"
             }
           }
-        }
-      },
-      {
-        "id": "67f9b299-fcc9-413c-85a1-c33c5ecd20c4",
-        "text": "$125,000 to $249,999",
-        "question": {
-          "data": {
-            "id": "znEPYuedAjPva",
-            "type": "question",
-            "attributes": {
-              "text": "What is the total value of your liquid assets...",
-              "description": "Generally, the greater the liquid assets you have, the more capacity you have to take on risk...",
-            },
-            "links": {
-              "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvBC6EFwAL",
-              "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
-            }
-          }
-        }
-      },
-      "..."
-    ],
-    "conflicts": [
-      {
-        "text": "It is unusual to seek high-risk investments when...",
-        "answers": [
-          {
-            "id": "9560f411-5585-4a42-adfe-93aa8721fa09",
-            "text": "Mostly concerned with potential...",
-            "question": {
-              "data": {
-                "id": "tnEKYuedAjPvB",
-                "type": "question",
-                "attributes": {
-                  "text": "Which statement best describes your primary concern...",
-                  "description": "This question helps assess your desire for risk..."
-                },
-                "links": {
-                  "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/EGJkOzOij5PUhMZsjUno",
-                  "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
-                }
+        },
+        "..."
+      ],
+      "answers": [
+        {
+          "id": "0db8f2a0-e382-4b5c-a5de-c467a461ef93",
+          "text": "18-25 yrs",
+          "question": {
+            "data": {
+              "id": "tnEKYuedAjPvB",
+              "type": "question",
+              "attributes": {
+                "text": "What is your age?",
+                "description": "Generally, younger investors have a greater appetite for..."
+              },
+              "links": {
+                "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvB",
+                "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
               }
             }
-          },
-          {
-            "id": "edfa8ab2-d35a-448a-b731-f1607396d164",
-            "text": "I want to play it safe and protect...",
-            "question": {
-              "data": {
-                "id": "tnEKYuedAjPvB",
-                "type": "question",
-                "attributes": {
-                  "text": "Which statement BEST describes your current...",
-                  "description": "This question helps assess your desire for risk..."
-                },
-                "links": {
-                  "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/EGJkOzOij5PUhMZsjUno",
-                  "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
+          }
+        },
+        {
+          "id": "67f9b299-fcc9-413c-85a1-c33c5ecd20c4",
+          "text": "$125,000 to $249,999",
+          "question": {
+            "data": {
+              "id": "znEPYuedAjPva",
+              "type": "question",
+              "attributes": {
+                "text": "What is the total value of your liquid assets...",
+                "description": "Generally, the greater the liquid assets you have, the more capacity you have to take on risk...",
+              },
+              "links": {
+                "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/tnEKYuedAjPvBC6EFwAL",
+                "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
+              }
+            }
+          }
+        },
+        "..."
+      ],
+      "conflicts": [
+        {
+          "text": "It is unusual to seek high-risk investments when...",
+          "answers": [
+            {
+              "id": "9560f411-5585-4a42-adfe-93aa8721fa09",
+              "text": "Mostly concerned with potential...",
+              "question": {
+                "data": {
+                  "id": "tnEKYuedAjPvB",
+                  "type": "question",
+                  "attributes": {
+                    "text": "Which statement best describes your primary concern...",
+                    "description": "This question helps assess your desire for risk..."
+                  },
+                  "links": {
+                    "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/EGJkOzOij5PUhMZsjUno",
+                    "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
+                  }
                 }
               }
+            },
+            {
+              "id": "edfa8ab2-d35a-448a-b731-f1607396d164",
+              "text": "I want to play it safe and protect...",
+              "question": {
+                "data": {
+                  "id": "tnEKYuedAjPvB",
+                  "type": "question",
+                  "attributes": {
+                    "text": "Which statement BEST describes your current...",
+                    "description": "This question helps assess your desire for risk..."
+                  },
+                  "links": {
+                    "self": "http://app.sixpark.com.au/api/v1/questionnaire/questions/EGJkOzOij5PUhMZsjUno",
+                    "related": "http://app.sixpark.com.au/api/v1/questionnaire/questions"
+                  }
+                }
+              },
+              "...",
             },
             "...",
-          },
-          "...",
-        ],
-      },
-    ],
+          ],
+        },
+      ]
+    }
   },
   "links": {
     "self": "http://app.sixpark.com.au/api/v1/questionnaire/results/QUc2RHBMa1V3TENDTnlaUmhIRWksdG5FS1l1ZWRBalB2QkM2RUZ3QUwK",
     "sign_up": "sign-up"
   }
-}
+]
 ```
 
 _Retrieve_ the Six Park questionnaire/risk assessment result.
 
 The response will reflect back a collection of `answers` as provided by the originating request.
 
-As part of the response, a collection of `conflicts` may be returned. Conflicts _must_ be shown as part of the customer journey and acknowledged or the answer(s) that raised the conflict, changed (until no further conflicts exist).
+As part of the response, a collection of `conflicts` may be returned. Conflicts _must_ be shown as part of the customer journey and acknowledged or the answer(s) that raised the conflict must be changed (until no further conflicts exist).
 
 ### HTTP Request
 
@@ -214,10 +216,11 @@ paginated | no |
 
 Property | Type | Description
 --------- | ----------- | -----------
-data | object | The result object
-data[id] | string | Unique identifier for the result object
-data[type] | string | The resource type - `results`
+data | collection | A collection of results
+data[id] | string | Unique identifier for the result object (comma separated Base64 safe encoded string of answer IDs)
+data[type] | string | The resource type - `result`
 data[attributes[name]] | string | The name of Portfolio - one of [ 'Conservative', 'Conservative Balanced', 'Balanced', 'Balanced Growth', 'Aggressive Growth' ]
+data[attributes[key]] | string | The key of the Portfolio - used when assigning a result to an account, or at sign up
 data[attributes[performance]] | object | The performance object
 data[attributes[performance[window]]] | string | For how many years performance is being reported - one of [ '1 year', '3 years', '5 years' ]
 data[attributes[performance[annualised_return_percent]]] | float | Percentage return - precision to 2 decimal places
@@ -228,13 +231,12 @@ data[attributes[descriptions[type]]] | string | The type of the description - on
 data[attributes[descriptions[description]]] | string | A description about the related type
 data[attributes[classifications]] | collection | Portfolio classifications
 data[attributes[classifications[type]]] | string | The classification - one of [ 'growth', 'defensive' ]
-data[attributes[classifications[percentage]]] | float | How much of the Portfolio the category is assigned - precision to 2 decimal places
+data[attributes[classifications[percentage]]] | float | How much of the Portfolio the classification is assigned - precision to 2 decimal places
 data[attributes[allocations]] | collection | A collection of equities the Portfolio is comprised of
 data[attributes[allocations[name]]] | string | Name of the equity
 data[attributes[allocations[ticker]]] | string | The ASX symbol
-data[attributes[classifications]] | collection | Asset Class classifications
 data[attributes[allocations[classifications[type]]]] | string | The classification - one of [ 'growth', 'defensive' ]
-data[attributes[allocations[classifications[percentage]]]] | float | How much of the Portfolio the category is assigned - precision to 2 decimal places
+data[attributes[allocations[classifications[percentage]]]] | float | How much of the Portfolio the classification is assigned - precision to 2 decimal places
 data[attributes[allocations[issuer_name]]] | string | The issuer of the ETF
 data[attributes[allocations[portfolio_percentage]]] | float | How much of the Portfolio this equity is assigned - precision to 2 decimal places
 data[attributes[allocations[documents]]] | object | A collection of financial documents
@@ -265,6 +267,6 @@ data[attributes[conflicts[answers[question[description]]]]] | string | Context a
 data[attributes[conflicts[answers[question[links]]]]] | object | Links related to question
 data[attributes[conflicts[answers[question[links][self]]]]] | object | Link to question
 data[attributes[conflicts[asnwers[question[links][related]]]]] | object | Link to all questions
-data[links] | object | Links to related endpoints
-data[links[sign_up]] | string | Where to submit the result to create a Six Park user and associations
-data[links[self]] | string | link to result
+links | object | Links to related endpoints
+links[sign_up] | string | Where to submit the result to create a Six Park user and associations
+links[self] | string | link to result

@@ -39,7 +39,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{oauth_url}}?grant_type=client_credentials",
 					"host": [
@@ -91,7 +97,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
@@ -130,7 +142,13 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{api_url}}/questionnaire/questions",
 					"host": [
@@ -165,7 +183,13 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{api_url}}/questionnaire/question/:id",
 					"host": [
@@ -200,21 +224,27 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{api_url}}/questionnaire/result",
+					"raw": "{{api_url}}/questionnaire/results/:id",
 					"host": [
 						"{{api_url}}"
 					],
 					"path": [
 						"questionnaire",
-						"result"
+						"results",
+						":id"
 					],
-					"query": [
+					"variable": [
 						{
-							"key": "answers",
-							"value": "[X,Y]",
-							"disabled": true
+							"key": "id",
+							"value": ""
 						}
 					]
 				}
@@ -235,7 +265,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -283,7 +319,7 @@
 						},
 						{
 							"key": "result",
-							"value": "{ 'answers': ['X','X'], 'conflicts_accepted': true }",
+							"value": "{ 'answers': ['X','X'] }",
 							"type": "text",
 							"disabled": true
 						}
@@ -315,7 +351,13 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{api_url}}/users/:id",
 					"host": [
@@ -349,7 +391,13 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{api_url}}/users/:user_id/accounts",
 					"host": [
@@ -384,7 +432,13 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{api_url}}/users/:user_id/accounts/:account_id",
 					"host": [
@@ -424,7 +478,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -476,7 +536,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -534,7 +600,13 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{api_url}}/users/:user_id/accounts/:account_id/portfolio",
 					"host": [

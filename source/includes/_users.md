@@ -16,7 +16,7 @@ curl "https://app.sixpark.com.au/api/v1/users"
   --data-urlencode "terms_accepted=true"
   --data-urlencode "newsletter_signup=true"
   --data-urlencode "phone_number=0410000000"
-  --data-urlencode "'result': { 'answers': ['X','X'], 'conflicts_accepted': true }"
+  --data-urlencode "'result': { 'id': '<comma separated Base64 safe encoded string of answer IDs>', 'key': 'personal_advice:balanced' }"
 
 ```
 
@@ -71,7 +71,7 @@ Outside of general property validation:
 
 - If the parameter `terms_accepted` is not provided, or provided as `false`, the response will return a HTTP 400 - Bad Request status code.
 
-- If the `result[answers]` parameter is provided and the `result[conflicts_accepted]` is not provided, or provided as `false` and the `result` endpoint returned a hydrated `conflicts` property, the response will return a HTTP 400 - Bad Request status code.
+- If the `result[key]` parameter does not produce a result as per the `result[id]` parameter the response will return a HTTP 400 - Bad Request status code.
 
 
 ### HTTP Request
@@ -89,8 +89,8 @@ phone_number | yes | string | `no default` | The user's phone number
 password | yes | string | `no default` | A password
 terms_accepted | no | boolean | false | Whether the terms have been accepted - one of either [ true, false ]
 newsletter_signup | no | boolean | false | Whether to add the user to the Six Park mailing list - one of either [ true, false ]
-result[answers] | no | collection | `no default` | A collection of Six Park answer **ids** as reflected back from the `result` endpoint
-result[conflicts_accepted] | no | boolean | false | If conflicts were returned via the `result` endpoint, whether they were accepted [ true, false ]
+result[id] | yes | string | `no default` | A comma separated Base64 safe encoded string of answer IDs as per the `result` endpoint
+result[key] | yes | string | `no default` | One of the keys returned from the `result` endpoint
 
 ### Summary
 
