@@ -48,6 +48,10 @@ echo 'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL' | base64
       {
         "type": "rating",
         "description": "We rate this portfolio as \"Medium Risk\". This means...",
+      },
+      {
+        "type": "blurb",
+        "description": "We've considered the answers you've provided about your investment goals..",
       }
     ],
     "categories": [
@@ -211,7 +215,7 @@ data[attributes[performance[annualised_return_percent]]] | float | Percentage re
 data[attributes[performance[negative_years]]] | Integer | Average amount of years that will be negative out of 20 years
 data[attributes[performance[return_over_cpi_percentage]]] | float | Percentage return over cpi - precision to 2 decimal places
 data[attributes[descriptions]] | collection | Portfolio descriptions
-data[attributes[descriptions[type]]] | string | The type of the description - one of [ 'composition', 'rating' ]
+data[attributes[descriptions[type]]] | string | The type of the description - one of [ 'composition', 'rating', 'blurb' ]
 data[attributes[descriptions[description]]] | string | A description about the related type
 data[attributes[categories]] | collection | Portfolio categories
 data[attributes[categories[type]]] | string | The category - one of [ 'growth', 'defensive' ]
