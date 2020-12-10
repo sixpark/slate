@@ -54,7 +54,7 @@ echo 'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL' | base64
         "description": "We've considered the answers you've provided about your investment goals..",
       }
     ],
-    "categories": [
+    "classifications": [
       {
         "type": "growth",
         "percentage": 50.00
@@ -68,7 +68,16 @@ echo 'AG6DpLkUwLCCNyZRhHEi,tnEKYuedAjPvBC6EFwAL' | base64
       {
         "name": "Intl Equities (Hedged)",
         "ticker": "VGAD",
-        "category_type": "growth",
+        "classifications": [
+          {
+            "type": "growth",
+            "percentage": 50.0
+          },
+          {
+            "type": "defensive",
+            "percentage": 50.0
+          }
+        ],
         "issuer_name": "Vanguard",
         "portfolio_percentage": 10.00,
         "documents": {
@@ -217,13 +226,15 @@ data[attributes[performance[return_over_cpi_percentage]]] | float | Percentage r
 data[attributes[descriptions]] | collection | Portfolio descriptions
 data[attributes[descriptions[type]]] | string | The type of the description - one of [ 'composition', 'rating', 'blurb' ]
 data[attributes[descriptions[description]]] | string | A description about the related type
-data[attributes[categories]] | collection | Portfolio categories
-data[attributes[categories[type]]] | string | The category - one of [ 'growth', 'defensive' ]
-data[attributes[categories[percentage]]] | float | How much of the Portfolio the category is assigned - precision to 2 decimal places
+data[attributes[classifications]] | collection | Portfolio classifications
+data[attributes[classifications[type]]] | string | The classification - one of [ 'growth', 'defensive' ]
+data[attributes[classifications[percentage]]] | float | How much of the Portfolio the category is assigned - precision to 2 decimal places
 data[attributes[allocations]] | collection | A collection of equities the Portfolio is comprised of
 data[attributes[allocations[name]]] | string | Name of the equity
 data[attributes[allocations[ticker]]] | string | The ASX symbol
-data[attributes[allocations[category_type]]] | string | The category - one of [ 'growth', 'defensive' ]
+data[attributes[classifications]] | collection | Asset Class classifications
+data[attributes[allocations[classifications[type]]]] | string | The classification - one of [ 'growth', 'defensive' ]
+data[attributes[allocations[classifications[percentage]]]] | float | How much of the Portfolio the category is assigned - precision to 2 decimal places
 data[attributes[allocations[issuer_name]]] | string | The issuer of the ETF
 data[attributes[allocations[portfolio_percentage]]] | float | How much of the Portfolio this equity is assigned - precision to 2 decimal places
 data[attributes[allocations[documents]]] | object | A collection of financial documents
