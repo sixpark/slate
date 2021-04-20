@@ -21,11 +21,11 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions"
         "description": "Generally, younger investors have a...",
         "answers": [
           {
-            "id": "AG6DpLkUwLCCNyZRhHEi",
+            "id": "edfa8ab2-d35a-448a-b731-f1607396d164",
             "text": "18-25 yrs"
           },
           {
-            "id": "K/7M/F24W8aMRlymNF3U",
+            "id": "e8b6469a-8bf3-4691-90bd-caf197aced3c",
             "text": "36-50 yrs"
           },
           "..."
@@ -100,11 +100,11 @@ curl "https://app.sixpark.com.au/api/v1/questionnaire/questions/:id"
       "description": "Generally, younger investors have a...",
       "answers": [
         {
-          "id": "AG6DpLkUwLCCNyZRhHEi",
+          "id": "7cef5e95-6606-4cac-b121-6b99f56cebb4",
           "text": "18-25 yrs"
         },
         {
-          "id": "K/7M/F24W8aMRlymNF3U",
+          "id": "cce4adcf-f91d-40dd-9f44-66a344910778",
           "text": "36-50 yrs"
         },
         "..."
