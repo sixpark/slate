@@ -11,7 +11,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6625151c-8423-450d-bfe7-d8fcb928125d",
 						"exec": [
 							"postman.clearEnvironmentVariable(\"access_token\");",
 							"",
@@ -39,11 +38,35 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "scope",
+							"value": "{{scopes}}",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "{{oauth_url}}?grant_type=client_credentials",
+					"raw": "{{oauth_url}}/token?grant_type=client_credentials",
 					"host": [
 						"{{oauth_url}}"
+					],
+					"path": [
+						"token"
 					],
 					"query": [
 						{
@@ -56,19 +79,71 @@
 			"response": []
 		},
 		{
-			"name": "Bearer token from refresh token",
+			"name": "Authorization token",
 			"event": [
 				{
-					"listen": "prerequest",
+					"listen": "test",
 					"script": {
-						"id": "18442c5e-8e8e-4d55-b390-ec586b8b92ec",
 						"exec": [
-							"postman.clearEnvironmentVariable(\"access_token\");",
-							"postman.clearEnvironmentVariable(\"refresh_token\");",
-							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{oauth_url}}/authorize?response_type=code&redirect_uri={{redirect_uri}}&client_id={{client_id}}&client_secret={{client_secret}}",
+					"host": [
+						"{{oauth_url}}"
+					],
+					"path": [
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{redirect_uri}}"
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bearer token from authorization code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
-							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);"
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -91,10 +166,100 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "{{authorization_code}}",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{redirect_uri}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{oauth_url}}/token",
+					"host": [
+						"{{oauth_url}}"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bearer token from refresh token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.clearEnvironmentVariable(\"access_token\");",
+							"postman.clearEnvironmentVariable(\"refresh_token\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
 						{
 							"key": "refresh_token",
 							"value": "{{refresh_token}}",
@@ -108,9 +273,12 @@
 					]
 				},
 				"url": {
-					"raw": "{{oauth_url}}",
+					"raw": "{{oauth_url}}/token",
 					"host": [
 						"{{oauth_url}}"
+					],
+					"path": [
+						"token"
 					]
 				}
 			},
@@ -139,13 +307,6 @@
 					"path": [
 						"questionnaire",
 						"questions"
-					],
-					"query": [
-						{
-							"key": "investor_type",
-							"value": "",
-							"disabled": true
-						}
 					]
 				}
 			},
@@ -167,19 +328,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{api_url}}/questionnaire/question/:id",
+					"raw": "{{api_url}}/questionnaire/questions/:id",
 					"host": [
 						"{{api_url}}"
 					],
 					"path": [
 						"questionnaire",
-						"question",
+						"questions",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						}
 					]
 				}
@@ -200,21 +362,28 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{api_url}}/questionnaire/result",
+					"raw": "{{api_url}}/questionnaire/results/:id",
 					"host": [
 						"{{api_url}}"
 					],
 					"path": [
 						"questionnaire",
-						"result"
+						"results",
+						":id"
 					],
-					"query": [
+					"variable": [
 						{
-							"key": "answers",
-							"value": "[X,Y]",
-							"disabled": true
+							"key": "id",
+							"value": "{{base_64_answers}}",
+							"type": "string"
 						}
 					]
 				}
@@ -315,21 +484,21 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{api_url}}/users/:id",
+					"raw": "{{api_url}}/users/me",
 					"host": [
 						"{{api_url}}"
 					],
 					"path": [
 						"users",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": ""
-						}
+						"me"
 					]
 				}
 			},
@@ -363,7 +532,8 @@
 					"variable": [
 						{
 							"key": "user_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						}
 					]
 				}
@@ -399,11 +569,13 @@
 					"variable": [
 						{
 							"key": "user_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						},
 						{
 							"key": "account_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						}
 					]
 				}
@@ -455,7 +627,8 @@
 					"variable": [
 						{
 							"key": "user_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						}
 					]
 				}
@@ -509,11 +682,13 @@
 					"variable": [
 						{
 							"key": "user_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						},
 						{
 							"key": "account_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						}
 					]
 				}
@@ -550,17 +725,18 @@
 					"variable": [
 						{
 							"key": "user_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						},
 						{
 							"key": "account_id",
-							"value": ""
+							"value": "",
+							"type": "string"
 						}
 					]
 				}
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
