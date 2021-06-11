@@ -61,7 +61,7 @@
 					]
 				},
 				"url": {
-					"raw": "{{oauth_url}}/token?grant_type=client_credentials",
+					"raw": "{{oauth_url}}?grant_type=client_credentials",
 					"host": [
 						"{{oauth_url}}"
 					],
